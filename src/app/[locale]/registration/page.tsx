@@ -24,6 +24,9 @@ export default function RegistrationPage() {
   const [appNumber, setAppNumber] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const [showDraftToast, setShowDraftToast] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+  const [website, setWebsite] = useState('');
   
 
   // Validation errors state
@@ -134,10 +137,77 @@ export default function RegistrationPage() {
     setTimeout(() => setShowDraftToast(false), 3000);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateStep(7)) {
-      setIsSuccess(true);
+    if (!validateStep(7)) return;
+
+    setIsLoading(true);
+    setSubmitError('');
+
+    try {
+      const response = await fetch('/api/registration', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          applicationNumber: appNumber,
+          locale,
+          headOfFamilyName: formData.headOfFamily,
+          phoneNumber: formData.phone,
+          village: formData.village,
+          idNumber: formData.idNumber,
+          idDocType: formData.idDocType,
+          householdSize: formData.householdSize,
+          childrenCount: formData.childrenCount,
+          womenCount: formData.womenCount,
+          youthCount: formData.youthCount,
+          schoolChildren: formData.schoolChildren,
+          hasDisabled: formData.hasDisabled,
+          mainIncome: formData.mainIncome,
+          monthlyIncome: formData.monthlyIncome,
+          treeCount: formData.treeCount,
+          annualProduction: formData.annualProduction,
+          hasLand: formData.hasLand,
+          landSize: formData.landSize,
+          waterSource: formData.waterSource,
+          crops: formData.crops,
+          suitableForTomato: formData.suitableForTomato,
+          cattleCount: formData.cattleCount,
+          sheepGoatCount: formData.sheepGoatCount,
+          hasMilkProduction: formData.hasMilkProduction,
+          hasVetSupport: formData.hasVetSupport,
+          mostUrgentNeed: formData.mostUrgentNeed,
+          trainingNeed: formData.trainingNeed,
+          notes: formData.notes,
+          consent1: formData.consent1,
+          consent2: formData.consent2,
+          consent3: formData.consent3,
+          consent4: formData.consent4,
+          website,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        setIsSuccess(true);
+      } else {
+        setSubmitError(
+          locale === 'ar'
+            ? 'فشل إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل مع اللجنة المحلية.'
+            : 'Submission failed. Please try again or contact the local committee.'
+        );
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitError(
+        locale === 'ar'
+          ? 'فشل إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل مع اللجنة المحلية.'
+          : 'Submission failed. Please try again or contact the local committee.'
+      );
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -149,8 +219,14 @@ export default function RegistrationPage() {
           <div className="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="w-7 h-7 text-emerald-800" />
           </div>
-          <h1 className="text-2xl md:text-3xl font-extrabold text-primary-900 mb-3">{dict.registration.successTitle}</h1>
-          <p className="text-xs text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">{dict.registration.successMessage}</p>
+          <h1 className="text-2xl md:text-3xl font-extrabold text-primary-900 mb-3 font-sans">
+            {locale === 'ar' ? 'تم إرسال التسجيل بنجاح.' : 'Registration submitted successfully.'}
+          </h1>
+          <p className="text-xs text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
+            {locale === 'ar' 
+              ? `رقم طلبك هو ${appNumber}.` 
+              : `Your application number is ${appNumber}.`}
+          </p>
           
           <div className="inline-block bg-[#FAF7EF] border border-[#E7E0D2]/50 px-6 py-4 rounded-xl mb-8">
             <span className="block text-[8px] font-extrabold uppercase tracking-widest text-[#9A6B3F] mb-1.5">{dict.registration.applicationNumber}</span>
@@ -905,6 +981,27 @@ export default function RegistrationPage() {
                       </div>
                     )}
 
+                    {/* Honeypot anti-spam field */}
+                    <div style={{ display: 'none' }}>
+                      <label>Leave this field empty</label>
+                      <input 
+                        type="text" 
+                        name="website" 
+                        value={website} 
+                        onChange={(e) => setWebsite(e.target.value)} 
+                        autoComplete="off" 
+                      />
+                    </div>
+
+                    {/* API Submission Error Alert */}
+                    {submitError && (
+                      <div className="bg-rose-50 border border-rose-100 rounded-xl p-4 animate-fade-in">
+                        <p className="text-xs text-rose-600 font-bold leading-relaxed">
+                          {submitError}
+                        </p>
+                      </div>
+                    )}
+
                     {/* Anonymous Statistics note */}
                     <p className="text-[10px] text-gray-400 leading-relaxed font-bold uppercase tracking-wider text-center">
                       {locale === 'ar'
@@ -955,10 +1052,20 @@ export default function RegistrationPage() {
                     ) : (
                       <button
                         type="submit"
-                        className="btn-primary px-6 py-3 text-xs font-bold transition-all shadow-soft cursor-pointer inline-flex items-center gap-1.5 w-full sm:w-auto justify-center"
+                        disabled={isLoading}
+                        className="btn-primary px-6 py-3 text-xs font-bold transition-all shadow-soft cursor-pointer inline-flex items-center gap-1.5 w-full sm:w-auto justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                       >
-                        {dict.registration.submit}
-                        <Send className="w-3.5 h-3.5" />
+                        {isLoading ? (
+                          <>
+                            {locale === 'ar' ? 'جاري الإرسال...' : 'Submitting...'}
+                            <Clock className="w-3.5 h-3.5 animate-spin" />
+                          </>
+                        ) : (
+                          <>
+                            {dict.registration.submit}
+                            <Send className="w-3.5 h-3.5" />
+                          </>
+                        )}
                       </button>
                     )}
 
