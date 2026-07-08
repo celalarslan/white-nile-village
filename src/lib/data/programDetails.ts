@@ -599,11 +599,11 @@ export const programDetails: LocalizedProgramDetail[] = [
     
     briefAr: [
       'تمثل الثروة الحيوانية جزءاً أساسياً من بقاء الأسرة الريفية وثروتها في مجتمعات النيل الأبيض. تعتمد كثير من الأسر على الحيوانات للحصول على اللبن واللحم والادخار والدخل في حالات الطوارئ. لكن إنتاجية المواشي قد تتأثر بنقص الأعلاف، مخاطر الأمراض، ضعف الوصول إلى الخدمات البيطرية، ضعف السجلات، وعدم التنظيم السوقي.',
-      'يساعد برنامج دعم الثروة الحيوانية الأسر على تحسين ممارسات بسيطة لكنها مهمة لحماية الحيوانات ودخل الأسرة.'
+      'يمكن دراسة إنشاء نقطة صغيرة مشتركة على مستوى القرية لتجميع الحليب والمعالجة الأولية البسيطة (وحدة ألبان صغيرة مشتركة)، وليس كمصنع كبير. وتهدف هذه الوحدة إلى تحسين النظافة، والتبريد البسيط، وإنتاج بعض المنتجات المحلية مثل اللبن أو الجبن أو الزبدة حسب الإمكانيات، مع دعم مشاركة النساء والشباب وتحسين دخل الأسر والتغذية المحلية.'
     ],
     briefEn: [
       'Livestock is a core part of household survival and rural wealth in White Nile communities. Many families depend on animals for milk, meat, savings, mobility and emergency income. However, livestock productivity can be weakened by feed shortages, disease risks, lack of veterinary access, poor record keeping and weak market organization.',
-      'The Livestock Support Program helps families improve simple but important livestock practices that protect animals and household income.'
+      'A village-level shared milk collection and basic dairy processing point (Small Shared Dairy Unit) may be developed as a support module. It is not intended as a large dairy factory, but as a practical facility to improve hygiene, simple cooling, local dairy products, women’s participation, nutrition and family income.'
     ],
     
     whyItMattersAr: [
@@ -619,7 +619,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'تحسين تخطيط الأعلاف والتوعية بمحاصيل العلف.',
       'تنسيق الزيارات البيطرية وحملات التطعيم مستقبلاً حيثما أمكن.',
       'تشجيع حفظ سجلات المواشي على مستوى الأسرة.',
-      'تعزيز دور النساء والشباب في رعاية الحيوانات.'
+      'دعم وحدة ألبان صغيرة مشتركة لتحسين النظافة المحلية ودخل النساء.'
     ],
     objectivesEn: [
       'Map household livestock assets and needs.',
@@ -627,7 +627,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'Improve feed planning and fodder crop awareness.',
       'Coordinate future veterinary visits and vaccination campaigns where possible.',
       'Promote livestock record keeping at household level.',
-      'Strengthen the role of women and youth in animal care activities.'
+      'Support a small shared dairy unit to enhance local hygiene and women\'s income.'
     ],
     
     beneficiariesAr: [
@@ -654,7 +654,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'جلسات توعية بالأمراض الحيوانية',
       'تحديد مسارات الإحالة البيطرية',
       'ربط التخطيط العلفي ببرنامج الزراعة',
-      'بطاقات سجلات مواشي للأسرة',
+      'دراسة وتخطيط إنشاء وحدة ألبان صغيرة مشتركة',
       'تقارير موسمية عن حالة الثروة الحيوانية'
     ],
     activitiesEn: [
@@ -664,7 +664,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'Animal disease awareness sessions',
       'Veterinary referral mapping',
       'Fodder crop planning with agriculture program',
-      'Household livestock record cards',
+      'Explore feasibility and planning for a small shared dairy unit',
       'Seasonal animal health reporting'
     ],
     
@@ -673,7 +673,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'الصحة الحيوانية الأساسية — التعرف على علامات الإنذار المبكر.',
       'تخطيط التغذية والمياه — تقليل الإجهاد وفقدان الإنتاجية.',
       'محاصيل الأعلاف وتخزينها — ربط الزراعة بالثروة الحيوانية.',
-      'النظافة والمأوى والرعاية اليومية — ممارسات وقائية بسيطة.',
+      'وحدة ألبان صغيرة مشتركة — النظافة، التبريد البسيط، والمنتجات المحلية الأساسية.',
       'التطعيم والتنسيق البيطري — متى وكيف نطلب الدعم.',
       'سجلات المواشي — متابعة الأعداد والولادات والنفوق والعلاجات.'
     ],
@@ -682,7 +682,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'Basic Animal Health — recognizing early warning signs.',
       'Feeding and Water Planning — reducing stress and productivity loss.',
       'Fodder Crops and Feed Storage — linking agriculture to livestock.',
-      'Clean Housing and Daily Care — simple preventive practices.',
+      'Small Shared Dairy Unit — hygiene, cooling, and basic dairy products.',
       'Vaccination and Veterinary Coordination — when and how to seek support.',
       'Household Livestock Records — tracking numbers, births, deaths and treatments.'
     ],
@@ -712,7 +712,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'فهم أفضل لمخاطر نقص الأعلاف.',
       'تقليل بعض الخسائر المرضية الممكن تجنبها.',
       'ربط برامج الزراعة والثروة الحيوانية.',
-      'الاعتراف بدور النساء والشباب في إدارة المواشي.'
+      'تحسين التغذية والتجهيز المحلي عبر وحدة ألبان صغيرة مشتركة.'
     ],
     expectedOutcomesEn: [
       'Livestock data becomes available for planning.',
@@ -720,7 +720,7 @@ export const programDetails: LocalizedProgramDetail[] = [
       'Feed shortage risks are better understood.',
       'Preventable disease losses may be reduced.',
       'Agriculture and livestock programs become connected.',
-      'Women and youth gain recognized roles in livestock management.'
+      'A village-level small shared dairy unit improves nutrition and local processing.'
     ],
     
     measurableIndicatorsAr: [
