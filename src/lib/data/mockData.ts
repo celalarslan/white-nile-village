@@ -79,7 +79,7 @@ export const programs: Program[] = [
     expectedImpactAr: 'تحسين صحة وإنتاجية الثروة الحيوانية',
     expectedImpactEn: 'Improve livestock health and productivity',
     icon: 'Cow',
-    image: '/nile8.webp',
+    image: '/hayvan.webp',
   },
   {
     id: 'prog-005',

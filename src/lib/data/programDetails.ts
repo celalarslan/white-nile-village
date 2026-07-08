@@ -582,7 +582,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-004',
     slug: 'livestock-support',
-    heroImage: '/nile8.webp',
+    heroImage: '/hayvan.webp',
     primaryFocusAr: 'الأبقار والأغنام والماعز',
     primaryFocusEn: 'Cattle, Sheep & Goats',
     targetGroupAr: 'مربو المواشي',
