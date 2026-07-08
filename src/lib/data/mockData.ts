@@ -34,7 +34,7 @@ export const programs: Program[] = [
     expectedImpactEn:
       'Increase gum arabic production quality and improve producer income',
     icon: 'Trees',
-    image: '/nile2.png',
+    image: '/nile2.webp',
   },
   {
     id: 'prog-002',
@@ -49,7 +49,7 @@ export const programs: Program[] = [
     expectedImpactAr: 'زيادة عدد الأشجار وتحسين الغطاء النباتي',
     expectedImpactEn: 'Increase tree count and improve vegetation cover',
     icon: 'Leaf',
-    image: '/nile3.png',
+    image: '/nile3.webp',
   },
   {
     id: 'prog-003',
@@ -64,7 +64,7 @@ export const programs: Program[] = [
     expectedImpactAr: 'تحسين الأمن الغذائي وزيادة الدخل الزراعي',
     expectedImpactEn: 'Improve food security and increase agricultural income',
     icon: 'Farm',
-    image: '/nile5.png',
+    image: '/nile5.webp',
   },
   {
     id: 'prog-004',
@@ -79,7 +79,7 @@ export const programs: Program[] = [
     expectedImpactAr: 'تحسين صحة وإنتاجية الثروة الحيوانية',
     expectedImpactEn: 'Improve livestock health and productivity',
     icon: 'Cow',
-    image: '/nile8.png',
+    image: '/nile8.webp',
   },
   {
     id: 'prog-005',
@@ -95,7 +95,7 @@ export const programs: Program[] = [
     expectedImpactEn:
       'Increase women and youth participation in local economy',
     icon: 'Users',
-    image: '/nile4.png',
+    image: '/nile4.webp',
   },
   {
     id: 'prog-006',
@@ -110,7 +110,7 @@ export const programs: Program[] = [
     expectedImpactAr: 'رفع كفاءة ومهارات المنتجين',
     expectedImpactEn: 'Enhance producer skills and competencies',
     icon: 'GraduationCap',
-    image: '/nile6.png',
+    image: '/nile6.webp',
   },
   {
     id: 'prog-007',
@@ -125,7 +125,7 @@ export const programs: Program[] = [
     expectedImpactAr: 'تحسين استهداف البرامج وقياس الأثر',
     expectedImpactEn: 'Improve program targeting and impact measurement',
     icon: 'ChartLine',
-    image: '/nile1.png',
+    image: '/nile1.webp',
   },
 ];
 
@@ -151,7 +151,7 @@ export const projects: Project[] = [
     ],
     startDate: '2026-06-01',
     endDate: '2026-12-31',
-    image: '/nile6.png',
+    image: '/nile6.webp',
   },
   {
     id: 'proj-002',
@@ -170,7 +170,7 @@ export const projects: Project[] = [
     ],
     startDate: '2026-08-01',
     endDate: '2027-03-31',
-    image: '/nile3.png',
+    image: '/nile3.webp',
   },
   {
     id: 'proj-003',
@@ -189,7 +189,7 @@ export const projects: Project[] = [
     ],
     startDate: '2026-09-15',
     endDate: '2026-11-30',
-    image: '/nile2.png',
+    image: '/nile2.webp',
   },
   {
     id: 'proj-004',
@@ -208,7 +208,7 @@ export const projects: Project[] = [
     ],
     startDate: '2026-10-01',
     endDate: '2027-04-30',
-    image: '/nile5.png',
+    image: '/nile5.webp',
   },
   {
     id: 'proj-005',
@@ -225,7 +225,7 @@ export const projects: Project[] = [
       'Small businesses launched',
       'Income generation for women',
     ],
-    image: '/nile4.png',
+    image: '/nile4.webp',
   },
   {
     id: 'proj-006',
@@ -244,7 +244,7 @@ export const projects: Project[] = [
     ],
     startDate: '2026-11-01',
     endDate: '2027-06-30',
-    image: '/nile8.png',
+    image: '/nile8.webp',
   },
 ];
 

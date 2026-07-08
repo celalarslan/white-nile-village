@@ -44,7 +44,7 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
       {/* Hero Section */}
       <div className="relative h-[55vh] min-h-[400px] w-full bg-black">
         <Image
-          src={project.image || '/nile2.png'}
+          src={project.image || '/nile2.webp'}
           alt={title}
           fill
           className="object-cover opacity-60"

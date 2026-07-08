@@ -44,7 +44,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-001',
     slug: 'gum-arabic-development',
-    heroImage: '/nile2.png',
+    heroImage: '/nile2.webp',
     primaryFocusAr: 'أشجار الهشاب والصمغ العربي',
     primaryFocusEn: 'Acacia Senegal Focus',
     targetGroupAr: 'منتجو الصمغ العربي',
@@ -225,7 +225,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-002',
     slug: 'tree-care-reforestation',
-    heroImage: '/nile3.png',
+    heroImage: '/nile3.webp',
     primaryFocusAr: 'حماية الأشجار والبيئة',
     primaryFocusEn: 'Tree Protection & Environment',
     targetGroupAr: 'المجتمع المحلي',
@@ -401,7 +401,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-003',
     slug: 'agriculture-support',
-    heroImage: '/nile5.png',
+    heroImage: '/nile5.webp',
     primaryFocusAr: 'تجارب إنتاج زراعي محدودة',
     primaryFocusEn: 'Trial Crop Demonstration',
     targetGroupAr: 'صغار المزارعين',
@@ -582,7 +582,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-004',
     slug: 'livestock-support',
-    heroImage: '/nile8.png',
+    heroImage: '/nile8.webp',
     primaryFocusAr: 'الأبقار والأغنام والماعز',
     primaryFocusEn: 'Cattle, Sheep & Goats',
     targetGroupAr: 'مربو المواشي',
@@ -763,7 +763,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-005',
     slug: 'women-youth-empowerment',
-    heroImage: '/nile4.png',
+    heroImage: '/nile4.webp',
     primaryFocusAr: 'إشراك النساء والشباب',
     primaryFocusEn: 'Women & Youth Participation',
     targetGroupAr: 'النساء والشباب',
@@ -942,7 +942,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-006',
     slug: 'training-certification',
-    heroImage: '/nile6.png',
+    heroImage: '/nile6.webp',
     primaryFocusAr: 'التدريب العملي',
     primaryFocusEn: 'Practical Training',
     targetGroupAr: 'جميع المستفيدين',
@@ -1123,7 +1123,7 @@ export const programDetails: LocalizedProgramDetail[] = [
   {
     id: 'prog-007',
     slug: 'rural-data-social-impact',
-    heroImage: '/nile1.png',
+    heroImage: '/nile1.webp',
     primaryFocusAr: 'نظام البيانات الأسرية',
     primaryFocusEn: 'Household Data System',
     targetGroupAr: 'إدارة المنظمة والمجتمع',

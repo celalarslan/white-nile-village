@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   description:
     'White Nile Development & Environment Organization (WNDEO) - A community-based rural development platform in White Nile State, Sudan.',
   icons: {
-    icon: '/WNDEO-favicon.png',
-    shortcut: '/WNDEO-favicon.png',
-    apple: '/WNDEO-favicon.png',
+    icon: '/WNDEO-favicon.webp',
+    shortcut: '/WNDEO-favicon.webp',
+    apple: '/WNDEO-favicon.webp',
   },
 };
 

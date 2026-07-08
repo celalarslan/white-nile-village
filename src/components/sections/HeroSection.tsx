@@ -116,7 +116,7 @@ export default function HeroSection({ locale }: HeroSectionProps) {
               <div className="relative w-full aspect-[4/5] rounded-[2rem] overflow-hidden shadow-soft border border-[#E8E5DD]/40 bg-white p-2 shrink-0">
                 <div className="relative w-full h-full rounded-[1.75rem] overflow-hidden bg-gray-150">
                   <Image
-                    src="/nile1.png"
+                    src="/nile1.webp"
                     alt="White Nile Agriculture and Acacia Care"
                     fill
                     priority

@@ -32,7 +32,7 @@ export default function Footer({ locale, dict }: FooterProps) {
           <div className="space-y-5">
             <Link href={`/${locale}`} className="flex items-center gap-3 mb-2 w-fit">
               <div className="relative w-9 h-9 flex-shrink-0 bg-white rounded-lg p-0.5 border border-[#1F4D36]">
-                <Image src="/WNDEO-logo.png" alt="WNDEO Logo" fill className="object-contain" />
+                <Image src="/WNDEO-logo.webp" alt="WNDEO Logo" fill className="object-contain" />
               </div>
               <h3 className="text-sm font-extrabold text-white tracking-tight">
                 {dict?.site?.name ?? 'White Nile Development'}

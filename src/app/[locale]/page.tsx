@@ -397,7 +397,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <div className="relative w-full aspect-square max-w-sm mx-auto rounded-3xl overflow-hidden shadow-soft p-1.5 bg-white border border-[#E8E5DD]/40">
                 <div className="relative w-full h-full rounded-[1.35rem] overflow-hidden bg-gray-150">
                   <Image
-                    src="/nile2.png"
+                    src="/nile2.webp"
                     alt="Acacia Senegal Forests"
                     fill
                     className="object-cover"

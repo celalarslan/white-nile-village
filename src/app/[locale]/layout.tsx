@@ -28,9 +28,9 @@ export async function generateMetadata({
       ? 'منظمة النيل الأبيض للتنمية والبيئة (WNDEO) - منصة تنمية ريفية مجتمعية لدعم منتجي الصمغ العربي ورعاية الأشجار والتحسين التدريجي لسبل العيش في ولاية النيل الأبيض بالسودان.'
       : 'White Nile Development & Environment Organization (WNDEO) - A community-based rural development platform supporting gum arabic producers, tree care, and gradual livelihoods improvement in White Nile State, Sudan.',
     icons: {
-      icon: '/WNDEO-favicon.png',
-      shortcut: '/WNDEO-favicon.png',
-      apple: '/WNDEO-favicon.png',
+      icon: '/WNDEO-favicon.webp',
+      shortcut: '/WNDEO-favicon.webp',
+      apple: '/WNDEO-favicon.webp',
     },
   };
 }

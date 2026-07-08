@@ -111,7 +111,7 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
           <div className="w-full lg:w-5/12 relative">
             <div className="relative aspect-[4/3] w-full rounded-[2.5rem] overflow-hidden shadow-2xl ring-1 ring-gray-900/5">
               <Image
-                src={program.heroImage || '/nile1.png'}
+                src={program.heroImage || '/nile1.webp'}
                 alt={title}
                 fill
                 className="object-cover hover:scale-105 transition-transform duration-1000"
