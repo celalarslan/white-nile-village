@@ -1,26 +1,289 @@
 @import "tailwindcss";
 
+/* ============================================================
+   White Nile Village Development — Design System
+   Tailwind CSS v4 (CSS-first configuration)
+   ============================================================ */
+
+/* Custom CSS variables for the design system */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary - Forest Greens */
+  --color-primary-50: #f4f7f5;
+  --color-primary-100: #ebf0ed;
+  --color-primary-200: #d7e1db;
+  --color-primary-300: #c3d2ca;
+  --color-primary-400: #a1b9ac;
+  --color-primary-500: #3f7d4a; /* Gum Arabic Green */
+  --color-primary-600: #33653c;
+  --color-primary-700: #28502f;
+  --color-primary-800: #1f4d36; /* Deep Forest Green */
+  --color-primary-900: #163726;
+  --color-primary-950: #0f261b;
+
+  /* Earth tones - Browns & Warm Sand */
+  --color-earth-50: #faf7ef; /* Warm Ivory */
+  --color-earth-100: #f4e8d0; /* Sand Beige */
+  --color-earth-200: #eadcbf;
+  --color-earth-300: #d6be9a;
+  --color-earth-400: #c2a077;
+  --color-earth-500: #a98254;
+  --color-earth-600: #9a6b3f; /* Earth Brown */
+  --color-earth-700: #815934;
+  --color-earth-800: #68482a;
+  --color-earth-900: #503720;
+
+  /* Slate & Charcoal (replaces flashy Navy) */
+  --color-navy-50: #f8fafc;
+  --color-navy-100: #f1f5f9;
+  --color-navy-200: #e2e8f0;
+  --color-navy-300: #cbd5e1;
+  --color-navy-400: #94a3b8;
+  --color-navy-500: #667085; /* Muted Text */
+  --color-navy-600: #475569;
+  --color-navy-700: #334155;
+  --color-navy-800: #1f2937;
+  --color-navy-900: #111827; /* Dark Slate */
+  --color-navy-950: #030712;
+
+  --background: #faf7ef; /* Warm Ivory background */
+  --foreground: #1f2933; /* Charcoal text */
+  --card-bg: #ffffff;
+  --card-border: #e8e5dd;
+  --muted: #f4e8d0; /* Sand Beige */
+  --muted-foreground: #667085;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ============================================================
+   Base Styles
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
+  font-family: 'Outfit', 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Base Typographic Hierarchy */
+h1, .h1 {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--color-primary-900);
+}
+
+h2, .h2 {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  color: var(--color-primary-900);
+}
+
+h3, .h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--foreground);
+}
+
+p, .body-text {
+  line-height: 1.6;
+  color: var(--muted-foreground);
+}
+
+/* Arabic font for RTL layouts */
+[dir="rtl"] body {
+  font-family: 'Cairo', 'Tajawal', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ============================================================
+   Premium UI Utilities & Design Tokens
+   ============================================================ */
+
+/* 1200px institutional container */
+.ngo-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+/* Balanced section spacing */
+.section-padding {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 6.5rem;
+    padding-bottom: 6.5rem;
+  }
+}
+
+/* Institutional card design system */
+.ngo-card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  border: 1px solid rgba(232, 229, 221, 0.5); /* Very soft sand beige border */
+  box-shadow: 0 10px 30px -10px rgba(31, 77, 54, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ngo-card-interactive:hover {
+  border-color: rgba(31, 77, 54, 0.15);
+  box-shadow: 0 20px 40px -15px rgba(31, 77, 54, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Solid Institutional Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: var(--color-primary-800);
+  color: #ffffff;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 12px rgba(31, 77, 54, 0.08);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-950);
+  box-shadow: 0 6px 16px rgba(31, 77, 54, 0.15);
+  transform: translateY(-1px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Secondary Outline Buttons */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: transparent;
+  color: var(--color-primary-800);
+  border: 1px solid var(--color-primary-300);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+.btn-secondary:hover {
+  background-color: var(--color-primary-50);
+  border-color: var(--color-primary-850);
+  color: var(--color-primary-950);
+}
+.btn-secondary:active {
+  transform: translateY(0);
+}
+
+.shadow-soft {
+  box-shadow: 0 10px 30px -10px rgba(31, 77, 54, 0.04);
+}
+
+.shadow-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.shadow-hover:hover {
+  box-shadow: 0 20px 40px -15px rgba(31, 77, 54, 0.08);
+  transform: translateY(-2px);
+}
+
+.text-gradient {
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(to right, var(--color-primary-800), var(--color-earth-600));
+}
+
+/* ============================================================
+   Animations
+   ============================================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+.animate-blob {
+  animation: blob 7s infinite;
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
+}
+
+/* ============================================================
+   Custom Scrollbar
+   ============================================================ */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-600);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-700);
 }
