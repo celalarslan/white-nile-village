@@ -25,9 +25,6 @@ export default function RegistrationPage() {
   const [isSuccess, setIsSuccess] = useState(false);
   const [showDraftToast, setShowDraftToast] = useState(false);
   
-  // File Upload states
-  const [idFileName, setIdFileName] = useState('');
-  const [photoFileName, setPhotoFileName] = useState('');
 
   // Validation errors state
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -112,7 +109,7 @@ export default function RegistrationPage() {
     if (currentStep === 7) {
       if (!formData.consent1) stepErrors.consent1 = locale === 'ar' ? 'يجب تأكيد دقة البيانات' : 'Confirmation is required';
       if (!formData.consent2) stepErrors.consent2 = locale === 'ar' ? 'مطلوب الموافقة على معالجة البيانات' : 'Consent is required';
-      if (!formData.consent3) stepErrors.consent3 = locale === 'ar' ? 'مطلوب تأكيد حفظ سرية الوثائق' : 'Consent is required';
+      if (!formData.consent3) stepErrors.consent3 = locale === 'ar' ? 'مطلوب تأكيد سرية البيانات الشخصية' : 'Consent to data privacy is required';
       if (!formData.consent4) stepErrors.consent4 = locale === 'ar' ? 'مطلوب تأكيد فهم طبيعة البرنامج التنموية' : 'Consent is required';
     }
 
@@ -144,18 +141,6 @@ export default function RegistrationPage() {
     }
   };
 
-  // Mock Upload Handlers
-  const handleIdUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setIdFileName(e.target.files[0].name);
-    }
-  };
-
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setPhotoFileName(e.target.files[0].name);
-    }
-  };
 
   if (isSuccess) {
     return (
@@ -514,45 +499,23 @@ export default function RegistrationPage() {
                       </div>
                     </div>
 
-                    {/* 9. File Upload Areas (ID & Photo) */}
-                    <div className="pt-8 mt-2 border-t border-gray-100 space-y-6">
-                      <h4 className="text-[10px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-1.5 border-b border-gray-100/70 mb-4">Supporting Documentation</h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
-                        
-                        {/* ID Upload */}
-                        <div className="border border-dashed border-[#E7E0D2] rounded-xl p-6 sm:p-8 text-center bg-[#FAF7EF]/30 flex flex-col items-center justify-center relative hover:bg-[#FAF7EF]/60 transition-colors">
-                          <input type="file" onChange={handleIdUpload} accept=".jpg,.png,.pdf" className="absolute inset-0 opacity-0 cursor-pointer" />
-                          <Upload className="w-5 h-5 text-gray-400 mb-2" />
-                          <span className="block text-xs font-bold text-gray-700 leading-tight mb-1">{dict.registration.uploadId}</span>
-                          <span className="block text-[9px] text-gray-400">PDF, JPG, PNG (Max 5MB)</span>
-                          <span className="mt-2 inline-flex items-center gap-1 text-[8px] font-extrabold text-[#9A6B3F] uppercase tracking-wider">
-                            <Lock className="w-2.5 h-2.5" /> Secure Storage
-                          </span>
-                          {idFileName && (
-                            <span className="mt-3 inline-flex items-center gap-1 text-[10px] font-bold text-primary-800 bg-primary-50 px-2.5 py-1 rounded border border-primary-100">
-                              <FileText className="w-3.5 h-3.5" />
-                              {idFileName}
-                            </span>
-                          )}
+                    {/* Document Upload Status Info Box */}
+                    <div className="pt-8 mt-2 border-t border-gray-100">
+                      <div className="bg-[#fcfaf7] border border-[#f3ead8] rounded-xl p-5 flex items-start gap-4 shadow-sm">
+                        <div className="bg-[#f3ead8] p-2.5 rounded-lg text-earth-700 shrink-0">
+                          <ShieldAlert className="w-5 h-5" />
                         </div>
-
-                        {/* Photo Upload */}
-                        <div className="border border-dashed border-[#E7E0D2] rounded-xl p-6 sm:p-8 text-center bg-[#FAF7EF]/30 flex flex-col items-center justify-center relative hover:bg-[#FAF7EF]/60 transition-colors">
-                          <input type="file" onChange={handlePhotoUpload} accept="image/*" className="absolute inset-0 opacity-0 cursor-pointer" />
-                          <Upload className="w-5 h-5 text-gray-400 mb-2" />
-                          <span className="block text-xs font-bold text-gray-700 leading-tight mb-1">{dict.registration.uploadFamilyPhoto}</span>
-                          <span className="block text-[9px] text-gray-400">Image files only (Optional)</span>
-                          <span className="mt-2 inline-flex items-center gap-1 text-[8px] font-extrabold text-[#9A6B3F] uppercase tracking-wider">
-                            <Lock className="w-2.5 h-2.5" /> Secure Storage
-                          </span>
-                          {photoFileName && (
-                            <span className="mt-3 inline-flex items-center gap-1 text-[10px] font-bold text-primary-800 bg-primary-50 px-2.5 py-1 rounded border border-primary-100">
-                              <FileText className="w-3.5 h-3.5" />
-                              {photoFileName}
-                            </span>
-                          )}
+                        <div>
+                          <h5 className="font-bold text-gray-900 text-sm mb-1">
+                            {locale === 'ar' ? 'معالجة البيانات والوثائق' : 'Data & Document Security'}
+                          </h5>
+                          <p className="text-gray-600 text-xs leading-relaxed">
+                            {locale === 'ar' 
+                              ? 'جمع المستندات غير مفعل في هذه النسخة التجريبية. وإذا كانت هناك حاجة إلى مستندات لاحقاً، فسيتم جمعها فقط عبر الموظفين المخولين وباستخدام تخزين آمن.'
+                              : 'Document collection is not active in this staging version. If documents are required later, they will be collected only through authorized staff and secure storage.'
+                            }
+                          </p>
                         </div>
-
                       </div>
                     </div>
 
