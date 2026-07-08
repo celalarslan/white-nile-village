@@ -18,7 +18,8 @@ export default function TextToSpeechButton({
   locale,
   className = '',
 }: TextToSpeechButtonProps) {
-  const [isSupported, setIsSupported] = useState(false);
+  // null indicates hydration hasn't happened yet
+  const [isSupported, setIsSupported] = useState<boolean | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const isMounted = useRef(true);
 
@@ -34,13 +35,15 @@ export default function TextToSpeechButton({
   }, []);
 
   const stop = useCallback(() => {
-    window.speechSynthesis.cancel();
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
     globalUtterance = null;
     globalStop = null;
     if (isMounted.current) setIsSpeaking(false);
   }, []);
 
   const speak = useCallback(() => {
+    if (!window.speechSynthesis) return;
+
     // Stop any other currently playing speech first
     if (globalStop) globalStop();
 
@@ -83,6 +86,7 @@ export default function TextToSpeechButton({
   }, [text, locale, stop]);
 
   const handleClick = () => {
+    if (!isSupported) return;
     if (isSpeaking) {
       stop();
     } else {
@@ -90,7 +94,8 @@ export default function TextToSpeechButton({
     }
   };
 
-  if (!isSupported) return null;
+  const isChecking = isSupported === null;
+  const isUnsupported = isSupported === false;
 
   const label =
     locale === 'ar'
@@ -104,15 +109,18 @@ export default function TextToSpeechButton({
   return (
     <button
       onClick={handleClick}
+      disabled={isChecking || isUnsupported}
       aria-label={label}
-      title={label}
+      title={isUnsupported ? 'Text-to-speech not supported in this browser' : label}
       className={[
-        'inline-flex items-center gap-1.5 mt-3',
-        'text-[11px] font-bold uppercase tracking-widest',
-        'text-gray-400 hover:text-primary-700',
-        'transition-colors duration-150',
-        'select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 rounded',
-        isSpeaking ? 'text-primary-600 animate-pulse' : '',
+        'inline-flex items-center gap-1.5 mt-4 px-3 py-1.5',
+        'text-[11px] font-bold uppercase tracking-widest rounded-lg',
+        'border transition-all duration-200 select-none focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400',
+        (isChecking || isUnsupported) 
+          ? 'bg-gray-50 border-gray-200 text-gray-400 cursor-not-allowed opacity-70' 
+          : isSpeaking 
+            ? 'bg-primary-50 border-primary-200 text-primary-700 animate-pulse shadow-sm' 
+            : 'bg-white border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-primary-700 hover:border-gray-300 shadow-sm',
         className,
       ]
         .filter(Boolean)
@@ -127,3 +135,4 @@ export default function TextToSpeechButton({
     </button>
   );
 }
+
