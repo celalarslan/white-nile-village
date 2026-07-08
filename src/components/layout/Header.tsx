@@ -84,7 +84,7 @@ export default function Header({ locale, dict }: HeaderProps) {
             className="flex items-center gap-3 text-primary-950 transition-opacity hover:opacity-90 shrink-0"
           >
             <div className="relative h-10 w-10 md:h-11 md:w-11 flex-shrink-0 p-0.5 bg-white rounded-lg shadow-soft border border-gray-150/40">
-              <Image src="/nile-favicon.png" alt="Logo" fill className="object-contain" />
+              <Image src="/WNDEO-logo.png" alt="WNDEO Logo" fill className="object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-extrabold leading-none text-primary-900 tracking-tight md:text-base">
@@ -226,7 +226,7 @@ export default function Header({ locale, dict }: HeaderProps) {
                 onClick={() => setMobileOpen(false)}
               >
                 <div className="relative h-8 w-8">
-                  <Image src="/nile-favicon.png" alt="Logo" fill className="object-contain" />
+                  <Image src="/WNDEO-logo.png" alt="WNDEO Logo" fill className="object-contain" />
                 </div>
                 <span className="text-sm font-extrabold">
                   {dict?.site?.name ?? 'White Nile Development'}

@@ -32,7 +32,7 @@ export default function Footer({ locale, dict }: FooterProps) {
           <div className="space-y-5">
             <Link href={`/${locale}`} className="flex items-center gap-3 mb-2 w-fit">
               <div className="relative w-9 h-9 flex-shrink-0 bg-white rounded-lg p-0.5 border border-[#1F4D36]">
-                <Image src="/nile-favicon.png" alt="Logo" fill className="object-contain" />
+                <Image src="/WNDEO-logo.png" alt="WNDEO Logo" fill className="object-contain" />
               </div>
               <h3 className="text-sm font-extrabold text-white tracking-tight">
                 {dict?.site?.name ?? 'White Nile Development'}
@@ -163,7 +163,7 @@ export default function Footer({ locale, dict }: FooterProps) {
         {/* Footer bottom bar */}
         <div className="mt-14 pt-6 border-t border-[#1F4D36]/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-start">
           <p className="text-[10px] text-[#FAF7EF]/60 font-semibold">
-            © {currentYear} {dict?.site?.name ?? 'White Nile Village Development'}. {dict?.footer?.rights ?? 'All rights reserved.'}
+            © {currentYear} {dict?.site?.name ?? 'WNDEO'}. {dict?.footer?.rights ?? 'All rights reserved.'}
           </p>
           <div className="flex items-center gap-4 text-[10px] text-[#F4E8D0]/60 font-bold uppercase tracking-wider">
             <span>

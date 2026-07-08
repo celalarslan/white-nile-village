@@ -2,9 +2,14 @@ import './globals.css';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'White Nile Village Development | تنمية قرى النيل الأبيض',
+  title: 'WNDEO | White Nile Development & Environment Organization | منظمة النيل الأبيض للتنمية والبيئة',
   description:
-    'A community-based rural development platform supporting gum arabic producers, agriculture, livestock, training, and social impact in White Nile State, Sudan.',
+    'White Nile Development & Environment Organization (WNDEO) - A community-based rural development platform in White Nile State, Sudan.',
+  icons: {
+    icon: '/WNDEO-favicon.png',
+    shortcut: '/WNDEO-favicon.png',
+    apple: '/WNDEO-favicon.png',
+  },
 };
 
 export default function RootLayout({

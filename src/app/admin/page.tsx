@@ -3,7 +3,7 @@ import { dashboardStats } from '@/lib/data/mockData';
 import { Users, Sprout, Tractor, Leaf, Award, FileText, CheckCircle, AlertCircle } from 'lucide-react';
 
 export const metadata = {
-  title: 'Admin Dashboard | White Nile Village Development',
+  title: 'Admin Dashboard | WNDEO',
 };
 
 export default function AdminDashboardPage() {

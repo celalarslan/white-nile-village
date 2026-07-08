@@ -22,11 +22,16 @@ export async function generateMetadata({
 
   return {
     title: isArabic
-      ? 'تنمية قرى النيل الأبيض | تنمية ريفية مستدامة'
-      : 'White Nile Village Development | Rural Development in Sudan',
+      ? 'منظمة النيل الأبيض للتنمية والبيئة | WNDEO'
+      : 'White Nile Development & Environment Organization | WNDEO',
     description: isArabic
-      ? 'منصة تنمية ريفية مجتمعية لدعم منتجي الصمغ العربي والزراعة والثروة الحيوانية والتدريب والأثر الاجتماعي في ولاية النيل الأبيض بالسودان.'
-      : 'A community-based rural development platform supporting gum arabic producers, agriculture, livestock, training, and social impact in White Nile State, Sudan.',
+      ? 'منظمة النيل الأبيض للتنمية والبيئة (WNDEO) - منصة تنمية ريفية مجتمعية لدعم منتجي الصمغ العربي ورعاية الأشجار والتحسين التدريجي لسبل العيش في ولاية النيل الأبيض بالسودان.'
+      : 'White Nile Development & Environment Organization (WNDEO) - A community-based rural development platform supporting gum arabic producers, tree care, and gradual livelihoods improvement in White Nile State, Sudan.',
+    icons: {
+      icon: '/WNDEO-favicon.png',
+      shortcut: '/WNDEO-favicon.png',
+      apple: '/WNDEO-favicon.png',
+    },
   };
 }
 

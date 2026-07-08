@@ -31,7 +31,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* Editorial Title Section */}
       <div className="mx-auto max-w-3xl px-4 pt-20 pb-12 text-center">
         <span className="text-[10px] font-bold uppercase tracking-widest text-primary-850">
-          White Nile Village Development
+          WNDEO — White Nile Development & Environment Organization
         </span>
         <h1 className="text-3xl md:text-5xl font-extrabold text-gray-900 tracking-tight mt-3 mb-6">
           {dict.about?.title as string}

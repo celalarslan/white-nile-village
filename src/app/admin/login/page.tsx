@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
             <TreePine className="w-8 h-8 text-primary-700" />
           </div>
           <h2 className="text-3xl font-extrabold text-gray-900 mb-2">Admin Panel</h2>
-          <p className="text-sm text-gray-600">White Nile Village Development</p>
+          <p className="text-sm text-gray-600">WNDEO — White Nile Development & Environment Organization</p>
         </div>
 
         {error && (
