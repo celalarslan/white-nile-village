@@ -402,8 +402,8 @@ export const programDetails: LocalizedProgramDetail[] = [
     id: 'prog-003',
     slug: 'agriculture-support',
     heroImage: '/nile5.png',
-    primaryFocusAr: 'محاصيل الطماطم والخضروات',
-    primaryFocusEn: 'Vegetable & Tomato Farming',
+    primaryFocusAr: 'تجارب إنتاج زراعي محدودة',
+    primaryFocusEn: 'Trial Crop Demonstration',
     targetGroupAr: 'صغار المزارعين',
     targetGroupEn: 'Smallholder Farmers',
     expectedImpactAr: 'تحسين الأمن الغذائي والدخل',
@@ -413,16 +413,16 @@ export const programDetails: LocalizedProgramDetail[] = [
     categoryEn: 'Food Security & Rural Income',
     titleAr: 'برنامج دعم الزراعة',
     titleEn: 'Agriculture Support Program',
-    shortSummaryAr: 'دعم زراعة الطماطم والخضروات ومحاصيل الأعلاف من خلال التدريب العملي، الحقول الإرشادية، تخطيط البذور، وتحسين ممارسات الإنتاج على مستوى الأسرة.',
-    shortSummaryEn: 'Supporting tomato, vegetable and fodder crop farming through practical training, demonstration plots, seed planning and better household-level production practices.',
+    shortSummaryAr: 'إلى جانب الصمغ العربي، يمكن اختبار بعض المحاصيل مثل الطماطم، الخضروات، محاصيل الأعلاف، والعنب من خلال مساحات تجريبية صغيرة، وذلك بعد فحص التربة، توفر المياه، جودة المياه، ملاءمة المناخ، وقدرة الأسر على المتابعة.',
+    shortSummaryEn: 'In addition to gum arabic, selected crops such as tomato, vegetables, fodder crops and grapes may be tested through small demonstration plots, depending on soil analysis, water availability, water quality, climate suitability and household capacity.',
     
     briefAr: [
-      'يعزز برنامج دعم الزراعة الأمن الغذائي وتنويع الدخل في المجتمعات الريفية بولاية النيل الأبيض. ورغم أن الصمغ العربي يمثل مورداً أساسياً، تحتاج الأسر أيضاً إلى مصادر غذاء ودخل مكملة. توجد في المنطقة إمكانات لزراعة الخضروات والطماطم والأعلاف، لكن كثيراً من الأسر تفتقر إلى المعرفة الفنية، وتخطيط البذور، وممارسات استخدام المياه، والإرشاد المنظم.',
-      'يقدم هذا البرنامج أساليب تحسين زراعي عملية ومنخفضة المخاطر يمكن تكييفها مع الظروف المحلية.'
+      'إلى جانب الصمغ العربي، يمكن اختبار بعض المحاصيل مثل الطماطم، الخضروات، محاصيل الأعلاف، والعنب من خلال مساحات تجريبية صغيرة، وذلك بعد فحص التربة، توفر المياه، جودة المياه، ملاءمة المناخ، وقدرة الأسر على المتابعة. ولا يتم تقديم هذه المحاصيل كأهداف إنتاج مؤكدة، بل كخيارات تجريبية لمعرفة ما يمكن أن ينجح واقعياً في البيئة المحلية.',
+      'تمت الإشارة محلياً إلى توفر المياه، وسيتم التحقق من ذلك خلال التقييم الميداني. كما يمكن دراسة زراعة العنب كمساحة تجريبية صغيرة بعد التحقق من ملاءمة التربة والمياه والمناخ.'
     ],
     briefEn: [
-      'The Agriculture Support Program strengthens household food security and income diversification in White Nile rural communities. While gum arabic is a central resource, families also need complementary income and food sources. The area has agricultural potential for vegetables, tomatoes and fodder crops, but many families lack access to technical knowledge, seed planning, water-use practices and organized production guidance.',
-      'This program introduces practical, low-risk agricultural improvement methods that can be adapted to local conditions.'
+      'In addition to gum arabic, selected crops such as tomato, vegetables, fodder crops and grapes may be tested through small demonstration plots, depending on soil analysis, water availability, water quality, climate suitability and household capacity. These crops are not presented as guaranteed production targets, but as trial options to identify what can work realistically in the local environment.',
+      'Local water access has been reported and will be verified during field assessment. Grape cultivation may be evaluated as a small experimental plot after soil, water and climate suitability checks.'
     ],
     
     whyItMattersAr: [
@@ -433,20 +433,20 @@ export const programDetails: LocalizedProgramDetail[] = [
     ],
     
     objectivesAr: [
-      'تحسين المعرفة الزراعية الأساسية لدى الأسر الريفية.',
-      'دعم إنتاج الخضروات والطماطم ومحاصيل الأعلاف.',
-      'إنشاء حقول إرشادية للتعلم العملي.',
-      'تحسين اختيار البذور وتوقيت الزراعة وتجهيز التربة.',
-      'تعزيز الأمن الغذائي وتنويع دخل الأسرة.',
-      'ربط التدريب الزراعي بالثروة الحيوانية والصمغ العربي.'
+      'تحسين المعرفة الزراعية الأساسية من خلال تجارب الإنتاج الزراعي المحدودة.',
+      'اختبار ملاءمة محاصيل الطماطم، الخضروات، والأعلاف في مساحات صغيرة.',
+      'إنشاء حقول إرشادية للتعلم العملي للمجتمع المحلي.',
+      'دراسة زراعة العنب كمساحة تجريبية صغيرة بعد التحقق من الملاءمة.',
+      'التحقق من توفر المياه المشار إليه محلياً خلال التقييم الميداني.',
+      'ربط نتائج التجارب بأعلاف المواشي وسبل عيش الصمغ العربي.'
     ],
     objectivesEn: [
-      'Improve basic agricultural knowledge among rural families.',
-      'Support vegetable, tomato and fodder crop production.',
-      'Introduce demonstration plots for practical learning.',
-      'Improve seed selection, planting timing and soil preparation.',
-      'Strengthen household food security and income diversity.',
-      'Connect agriculture training with livestock and gum arabic livelihoods.'
+      'Improve basic agricultural knowledge through trial crop demonstrations.',
+      'Test tomato, vegetable, and fodder crop suitability via small plots.',
+      'Introduce demonstration plots for practical community learning.',
+      'Evaluate grape cultivation as a small experimental plot after suitability checks.',
+      'Verify reported water access during field assessment.',
+      'Connect trial results with livestock fodder and gum arabic livelihoods.'
     ],
     
     beneficiariesAr: [
@@ -467,24 +467,24 @@ export const programDetails: LocalizedProgramDetail[] = [
     ],
     
     activitiesAr: [
-      'حصر القدرة الزراعية لكل أسرة',
-      'تدريب على زراعة الخضروات والطماطم',
-      'تخطيط محاصيل الأعلاف لدعم المواشي',
-      'إنشاء حقول إرشادية',
-      'جلسات تخطيط البذور والمدخلات',
-      'توعية بتجهيز التربة والسماد العضوي البسيط',
-      'إرشاد حول الري واستخدام المياه',
-      'متابعة موسمية للإنتاج'
+      'حصر القدرة الزراعية والموارد المتاحة لكل أسرة',
+      'إنشاء حقول إرشادية لتجارب الطماطم والخضروات',
+      'تخطيط مساحات تجريبية للأعلاف لدعم المواشي',
+      'تخطيط مساحة تجريبية صغيرة لزراعة العنب وفحص الملاءمة',
+      'التحقق الميداني من توفر المياه المشار إليه محلياً',
+      'تحليل التربة والمياه لاختيار المحاصيل التجريبية المناسبة',
+      'إرشاد حول كفاءة استخدام المياه والري البسيط',
+      'متابعة ورفع تقارير عن إنتاجية المحاصيل التجريبية'
     ],
     activitiesEn: [
-      'Agricultural capacity mapping by household',
-      'Training on vegetable and tomato cultivation',
-      'Fodder crop planning for livestock support',
-      'Demonstration plot setup',
-      'Seed and input planning sessions',
-      'Soil preparation and basic compost awareness',
-      'Small irrigation and water-use guidance',
-      'Seasonal production monitoring'
+      'Household agricultural capacity and resource mapping',
+      'Demonstration plot setup for tomato and vegetable trials',
+      'Fodder crop trial planning to support livestock',
+      'Experimental plot planning for grape cultivation suitability',
+      'Field verification of reported local water access',
+      'Soil and water quality analysis for trial crop selection',
+      'Water-use and basic irrigation efficiency guidance',
+      'Monitoring and reporting yield performance of trial crops'
     ],
     
     trainingModulesAr: [
