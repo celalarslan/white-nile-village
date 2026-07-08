@@ -138,15 +138,15 @@ export default function Footer({ locale, dict }: FooterProps) {
               </div>
               <div className="flex items-start gap-2.5">
                 <span className="text-[#F4E8D0] mt-0.5">✉</span>
-                <a href="mailto:info@whiteniledevelopment.org" className="hover:text-white transition-colors break-all">
-                  info@whiteniledevelopment.org
-                </a>
+                <span>
+                  {locale === 'ar' ? 'سيتم الإعلان عن البريد الإلكتروني الرسمي لاحقاً' : 'Official email will be announced'}
+                </span>
               </div>
               <div className="flex items-start gap-2.5">
                 <span className="text-[#F4E8D0] mt-0.5">☎</span>
-                <a href="https://wa.me/249123456789" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
-                  WhatsApp: +249 123 456 789
-                </a>
+                <span>
+                  {locale === 'ar' ? 'سيتم الإعلان عن جهة اتصال اللجنة المحلية' : 'Local committee contact will be announced'}
+                </span>
               </div>
               <div className="pt-1.5">
                 <Link
@@ -166,7 +166,11 @@ export default function Footer({ locale, dict }: FooterProps) {
             © {currentYear} {dict?.site?.name ?? 'White Nile Village Development'}. {dict?.footer?.rights ?? 'All rights reserved.'}
           </p>
           <div className="flex items-center gap-4 text-[10px] text-[#F4E8D0]/60 font-bold uppercase tracking-wider">
-            <span>HAC Sudan Registration: #42371-SD</span>
+            <span>
+              {locale === 'ar' 
+                ? 'سيتم نشر تفاصيل التسجيل القانوني والتفويض المحلي بعد اكتمال الإجراءات الرسمية.' 
+                : 'Legal registration and local authorization details will be published after official completion.'}
+            </span>
           </div>
         </div>
       </div>

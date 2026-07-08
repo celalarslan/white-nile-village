@@ -306,7 +306,9 @@ export default function RegistrationPage() {
                 
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">{locale === 'ar' ? 'القسم الحالي' : 'Current Step'}</span>
-                  <span className="text-primary-900 font-semibold">Section {step} of {totalSteps}</span>
+                  <span className="text-primary-900 font-semibold">
+                    {locale === 'ar' ? `القسم ${step} من ${totalSteps}` : `Section ${step} of ${totalSteps}`}
+                  </span>
                 </div>
 
                 <div className="flex justify-between items-center">
@@ -343,8 +345,8 @@ export default function RegistrationPage() {
 
               <div className="pt-2 border-t border-[#E7E0D2]/50 text-center">
                 <p className="text-[10px] text-gray-400 leading-relaxed font-bold uppercase tracking-wider flex items-center justify-center gap-1.5">
-                  <Database className="w-3.5 h-3.5" />
-                  RESTRICTED ACCESS DATABASE
+                  <Lock className="w-3.5 h-3.5" />
+                  {locale === 'ar' ? 'مراجعة داخلية محدودة' : 'Restricted internal review'}
                 </p>
               </div>
             </div>
@@ -397,7 +399,9 @@ export default function RegistrationPage() {
               
               {/* Stepper Label Panel for Mobile */}
               <div className="bg-gray-50/50 px-6 py-4 border-b border-gray-100/70 flex md:hidden justify-between items-center">
-                <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-widest">Section {step} of {totalSteps}</span>
+                <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-widest">
+                  {locale === 'ar' ? `القسم ${step} من ${totalSteps}` : `Section ${step} of ${totalSteps}`}
+                </span>
                 <span className="text-[10px] font-bold text-primary-900">{steps[step - 1]}</span>
               </div>
 
@@ -479,7 +483,9 @@ export default function RegistrationPage() {
 
                     {/* Grouped section: Members */}
                     <div className="pt-8 mt-2 border-t border-gray-100">
-                      <h4 className="text-[10px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-1.5 border-b border-gray-100/70 mb-4">Household Composition</h4>
+                      <h4 className="text-[10px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-1.5 border-b border-gray-100/70 mb-4">
+                        {locale === 'ar' ? 'تكوين الأسرة' : 'Household Composition'}
+                      </h4>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
                         <div>
                           <label className="block text-[9px] font-medium text-gray-500 uppercase tracking-wider mb-2 leading-relaxed">{dict.registration.householdSize}</label>
@@ -1116,7 +1122,9 @@ export default function RegistrationPage() {
                 
                 <div className="flex justify-between items-center">
                   <span className="text-gray-400">{locale === 'ar' ? 'القسم الحالي' : 'Current Step'}</span>
-                  <span className="text-primary-900 font-semibold">Section {step} of {totalSteps}</span>
+                  <span className="text-primary-900 font-semibold">
+                    {locale === 'ar' ? `القسم ${step} من ${totalSteps}` : `Section ${step} of ${totalSteps}`}
+                  </span>
                 </div>
 
                 <div className="flex justify-between items-center">
@@ -1153,8 +1161,8 @@ export default function RegistrationPage() {
 
               <div className="pt-2 border-t border-[#E7E0D2]/50 text-center">
                 <p className="text-[10px] text-gray-400 leading-relaxed font-bold uppercase tracking-wider flex items-center justify-center gap-1.5">
-                  <Database className="w-3.5 h-3.5" />
-                  RESTRICTED ACCESS DATABASE
+                  <Lock className="w-3.5 h-3.5" />
+                  {locale === 'ar' ? 'مراجعة داخلية محدودة' : 'Restricted internal review'}
                 </p>
               </div>
             </div>

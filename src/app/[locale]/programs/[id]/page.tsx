@@ -155,145 +155,161 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
             </section>
 
             {/* 3.4 Objectives */}
-            <section className="space-y-8">
-              <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
-                <Target className="w-7 h-7 text-forest-600" weight="duotone" />
-                {labels?.coreObjectives ?? 'Core Objectives'}
-              </h2>
-              <ul className="grid sm:grid-cols-2 gap-5 lg:gap-6">
-                {objectives.map((obj, i) => (
-                  <li key={i} className="flex gap-4 bg-white p-6 md:p-8 rounded-2xl shadow-soft border border-gray-100/80 items-start hover:shadow-md transition-shadow">
-                    <CheckCircle className="w-7 h-7 text-forest-500 shrink-0 mt-0.5" weight="fill" />
-                    <span className="text-gray-800 font-medium leading-[1.6]">{obj}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {objectives && objectives.length > 0 && (
+              <section className="space-y-8">
+                <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
+                  <Target className="w-7 h-7 text-forest-600" weight="duotone" />
+                  {labels?.coreObjectives ?? 'Core Objectives'}
+                </h2>
+                <ul className="grid sm:grid-cols-2 gap-5 lg:gap-6">
+                  {objectives.map((obj, i) => (
+                    <li key={i} className="flex gap-4 bg-white p-6 md:p-8 rounded-2xl shadow-soft border border-gray-100/80 items-start hover:shadow-md transition-shadow">
+                      <CheckCircle className="w-7 h-7 text-forest-500 shrink-0 mt-0.5" weight="fill" />
+                      <span className="text-gray-800 font-medium leading-[1.6]">{obj}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {/* 3.6 Activities Grid */}
-            <section className="space-y-8">
-              <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
-                <Leaf className="w-7 h-7 text-forest-600" weight="duotone" />
-                {labels?.keyActivities ?? 'Key Activities'}
-              </h2>
-              <ul className="grid sm:grid-cols-2 gap-5 lg:gap-6">
-                {activities.map((act, i) => (
-                  <li key={i} className="flex gap-4 bg-white p-6 rounded-2xl shadow-soft border border-gray-100 items-start hover:border-forest-200 transition-colors">
-                    <div className="w-10 h-10 rounded-xl bg-forest-50 flex items-center justify-center shrink-0 border border-forest-100/50">
-                      <span className="text-forest-600 font-bold text-sm">{i + 1}</span>
-                    </div>
-                    <span className="text-gray-700 font-medium leading-[1.6] pt-1.5">{act}</span>
-                  </li>
-                ))}
-              </ul>
-            </section>
+            {activities && activities.length > 0 && (
+              <section className="space-y-8">
+                <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
+                  <Leaf className="w-7 h-7 text-forest-600" weight="duotone" />
+                  {labels?.keyActivities ?? 'Key Activities'}
+                </h2>
+                <ul className="grid sm:grid-cols-2 gap-5 lg:gap-6">
+                  {activities.map((act, i) => (
+                    <li key={i} className="flex gap-4 bg-white p-6 rounded-2xl shadow-soft border border-gray-100 items-start hover:border-forest-200 transition-colors">
+                      <div className="w-10 h-10 rounded-xl bg-forest-50 flex items-center justify-center shrink-0 border border-forest-100/50">
+                        <span className="text-forest-600 font-bold text-sm">{i + 1}</span>
+                      </div>
+                      <span className="text-gray-700 font-medium leading-[1.6] pt-1.5">{act}</span>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
 
             {/* 3.7 Training Modules */}
-            <section className="space-y-8">
-              <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
-                <BookOpen className="w-7 h-7 text-earth-600" weight="duotone" />
-                {labels?.trainingModules ?? 'Training Modules'}
-              </h2>
-              <ul className="grid sm:grid-cols-2 gap-5 lg:gap-6">
-                {trainingModules.map((mod, i) => {
-                  const parts = mod.split('—');
-                  const modTitle = parts[0];
-                  const modDesc = parts[1] || '';
-                  return (
-                    <li key={i} className="bg-white p-6 md:p-7 rounded-[1.5rem] border border-gray-100 shadow-soft hover:shadow-md transition-shadow group">
-                      <div className="flex items-start gap-4">
-                        <div className="p-2.5 bg-earth-50 rounded-xl text-earth-600 group-hover:bg-earth-100 transition-colors shrink-0">
-                          <BookOpen className="w-5 h-5" weight="bold" />
+            {trainingModules && trainingModules.length > 0 && (
+              <section className="space-y-8">
+                <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
+                  <BookOpen className="w-7 h-7 text-earth-600" weight="duotone" />
+                  {labels?.trainingModules ?? 'Training Modules'}
+                </h2>
+                <ul className="grid sm:grid-cols-2 gap-5 lg:gap-6">
+                  {trainingModules.map((mod, i) => {
+                    const parts = mod.split('—');
+                    const modTitle = parts[0];
+                    const modDesc = parts[1] || '';
+                    return (
+                      <li key={i} className="bg-white p-6 md:p-7 rounded-[1.5rem] border border-gray-100 shadow-soft hover:shadow-md transition-shadow group">
+                        <div className="flex items-start gap-4">
+                          <div className="p-2.5 bg-earth-50 rounded-xl text-earth-600 group-hover:bg-earth-100 transition-colors shrink-0">
+                            <BookOpen className="w-5 h-5" weight="bold" />
+                          </div>
+                          <div>
+                            <span className="font-bold text-gray-900 block mb-2 text-base leading-tight">
+                              {modTitle}
+                            </span>
+                            {modDesc && (
+                              <span className="text-gray-600 text-sm leading-[1.6] block">{modDesc}</span>
+                            )}
+                          </div>
                         </div>
-                        <div>
-                          <span className="font-bold text-gray-900 block mb-2 text-base leading-tight">
-                            {modTitle}
-                          </span>
-                          {modDesc && (
-                            <span className="text-gray-600 text-sm leading-[1.6] block">{modDesc}</span>
-                          )}
-                        </div>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </section>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            )}
 
             {/* 3.8 Implementation Pathway */}
-            <section className="space-y-10">
-              <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
-                <Path className="w-7 h-7 text-forest-600" weight="duotone" />
-                {labels?.implementationPathway ?? 'Implementation Pathway'}
-              </h2>
-              
-              <div className="bg-white p-8 md:p-12 rounded-[2rem] border border-gray-100 shadow-soft">
-                <div className="relative border-s-2 border-gray-200 ml-5 rtl:ml-0 rtl:mr-5 rtl:border-s-0 rtl:border-r-2 space-y-12">
-                  {implementationPathway.map((step, i) => (
-                    <div key={i} className="ms-10 rtl:ms-0 rtl:mr-10 relative">
-                      <span className="absolute flex items-center justify-center w-12 h-12 bg-white rounded-full -start-[3.25rem] rtl:-start-auto rtl:-end-[3.25rem] ring-4 ring-white border-2 border-forest-200 shadow-sm top-0 translate-y-[-20%]">
-                        <span className="text-base font-black text-forest-600">{i + 1}</span>
-                      </span>
-                      <div className="bg-gray-50/50 p-5 rounded-2xl border border-gray-100">
-                        <h3 className="font-bold text-gray-800 text-lg leading-snug">{step}</h3>
+            {implementationPathway && implementationPathway.length > 0 && (
+              <section className="space-y-10">
+                <h2 className="text-2xl font-extrabold text-gray-900 flex items-center gap-3">
+                  <Path className="w-7 h-7 text-forest-600" weight="duotone" />
+                  {labels?.implementationPathway ?? 'Implementation Pathway'}
+                </h2>
+                
+                <div className="bg-white p-8 md:p-12 rounded-[2rem] border border-gray-100 shadow-soft">
+                  <div className="relative border-s-2 border-gray-200 ml-5 rtl:ml-0 rtl:mr-5 rtl:border-s-0 rtl:border-r-2 space-y-12">
+                    {implementationPathway.map((step, i) => (
+                      <div key={i} className="ms-10 rtl:ms-0 rtl:mr-10 relative">
+                        <span className="absolute flex items-center justify-center w-12 h-12 bg-white rounded-full -start-[3.25rem] rtl:-start-auto rtl:-end-[3.25rem] ring-4 ring-white border-2 border-forest-200 shadow-sm top-0 translate-y-[-20%]">
+                          <span className="text-base font-black text-forest-600">{i + 1}</span>
+                        </span>
+                        <div className="bg-gray-50/50 p-5 rounded-2xl border border-gray-100">
+                          <h3 className="font-bold text-gray-800 text-lg leading-snug">{step}</h3>
+                        </div>
                       </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
+            {/* 3.9 Expected Outcomes & 3.10 Indicators */}
+            {((expectedOutcomes && expectedOutcomes.length > 0) || (measurableIndicators && measurableIndicators.length > 0)) && (
+              <section className="bg-forest-50/80 rounded-[2.5rem] p-8 md:p-12 border border-forest-100/50 shadow-sm">
+                <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+                  {expectedOutcomes && expectedOutcomes.length > 0 && (
+                    <div className="space-y-8">
+                      <h3 className="text-xl font-extrabold text-forest-900 flex items-center gap-3">
+                        <div className="p-2.5 bg-white rounded-xl shadow-sm"><CheckCircle className="w-6 h-6 text-forest-600" weight="fill" /></div>
+                        {labels?.expectedOutcomes ?? 'Expected Outcomes'}
+                      </h3>
+                      <ul className="space-y-5">
+                        {expectedOutcomes.map((out, i) => (
+                          <li key={i} className="flex gap-4 bg-white/60 p-4 rounded-xl items-start">
+                            <CheckCircle className="w-6 h-6 text-forest-500 shrink-0 mt-0.5" weight="duotone" />
+                            <span className="text-forest-900 font-medium leading-[1.6]">{out}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                  {measurableIndicators && measurableIndicators.length > 0 && (
+                    <div className="space-y-8">
+                      <h3 className="text-xl font-extrabold text-forest-900 flex items-center gap-3">
+                        <div className="p-2.5 bg-white rounded-xl shadow-sm"><ChartLineUp className="w-6 h-6 text-earth-600" weight="fill" /></div>
+                        {labels?.measurableIndicators ?? 'Measurable Indicators'}
+                      </h3>
+                      <ul className="space-y-5">
+                        {measurableIndicators.map((ind, i) => (
+                          <li key={i} className="flex gap-4 bg-white/60 p-4 rounded-xl items-start">
+                            <ChartLineUp className="w-6 h-6 text-earth-600 shrink-0 mt-0.5" weight="duotone" />
+                            <span className="text-forest-900 font-medium leading-[1.6]">{ind}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              </section>
+            )}
+
+            {/* 3.11 Safeguards */}
+            {safeguards && safeguards.length > 0 && (
+              <section className="space-y-8 bg-[#f8f9fa] p-8 md:p-12 rounded-[2rem] border border-gray-200 shadow-soft mb-12">
+                <h2 className="text-xl font-extrabold text-gray-900 flex items-center gap-4">
+                  <div className="bg-white p-3 rounded-2xl text-gray-500 shadow-sm">
+                    <ShieldCheck className="w-6 h-6" weight="duotone" />
+                  </div>
+                  {labels?.safeguardsPrinciples ?? 'Safeguards & Principles'}
+                </h2>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {safeguards.map((safe, i) => (
+                    <div key={i} className="flex gap-4 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm items-start">
+                      <Info className="w-6 h-6 text-gray-400 shrink-0 mt-0.5" weight="fill" />
+                      <span className="text-gray-700 font-medium leading-[1.6] text-sm">{safe}</span>
                     </div>
                   ))}
                 </div>
-              </div>
-            </section>
-
-            {/* 3.9 Expected Outcomes & 3.10 Indicators */}
-            <section className="bg-forest-50/80 rounded-[2.5rem] p-8 md:p-12 border border-forest-100/50 shadow-sm">
-              <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
-                <div className="space-y-8">
-                  <h3 className="text-xl font-extrabold text-forest-900 flex items-center gap-3">
-                    <div className="p-2.5 bg-white rounded-xl shadow-sm"><CheckCircle className="w-6 h-6 text-forest-600" weight="fill" /></div>
-                    {labels?.expectedOutcomes ?? 'Expected Outcomes'}
-                  </h3>
-                  <ul className="space-y-5">
-                    {expectedOutcomes.map((out, i) => (
-                      <li key={i} className="flex gap-4 bg-white/60 p-4 rounded-xl items-start">
-                        <CheckCircle className="w-6 h-6 text-forest-500 shrink-0 mt-0.5" weight="duotone" />
-                        <span className="text-forest-900 font-medium leading-[1.6]">{out}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="space-y-8">
-                  <h3 className="text-xl font-extrabold text-forest-900 flex items-center gap-3">
-                    <div className="p-2.5 bg-white rounded-xl shadow-sm"><ChartLineUp className="w-6 h-6 text-earth-600" weight="fill" /></div>
-                    {labels?.measurableIndicators ?? 'Measurable Indicators'}
-                  </h3>
-                  <ul className="space-y-5">
-                    {measurableIndicators.map((ind, i) => (
-                      <li key={i} className="flex gap-4 bg-white/60 p-4 rounded-xl items-start">
-                        <ChartLineUp className="w-6 h-6 text-earth-600 shrink-0 mt-0.5" weight="duotone" />
-                        <span className="text-forest-900 font-medium leading-[1.6]">{ind}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* 3.11 Safeguards */}
-            <section className="space-y-8 bg-[#f8f9fa] p-8 md:p-12 rounded-[2rem] border border-gray-200 shadow-soft mb-12">
-              <h2 className="text-xl font-extrabold text-gray-900 flex items-center gap-4">
-                <div className="bg-white p-3 rounded-2xl text-gray-500 shadow-sm">
-                  <ShieldCheck className="w-6 h-6" weight="duotone" />
-                </div>
-                {labels?.safeguardsPrinciples ?? 'Safeguards & Principles'}
-              </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
-                {safeguards.map((safe, i) => (
-                  <div key={i} className="flex gap-4 bg-white p-5 rounded-2xl border border-gray-100 shadow-sm items-start">
-                    <Info className="w-6 h-6 text-gray-400 shrink-0 mt-0.5" weight="fill" />
-                    <span className="text-gray-700 font-medium leading-[1.6] text-sm">{safe}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
+              </section>
+            )}
 
           </div>
 
@@ -301,20 +317,22 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
           <div className="w-full lg:w-[35%] lg:sticky lg:top-24 space-y-8">
             
             {/* Target Beneficiaries (Soft Cream box) */}
-            <div className="bg-[#fcfaf7] rounded-[2rem] p-8 border border-[#f3ead8] shadow-sm">
-              <h3 className="text-xs font-bold uppercase tracking-widest text-earth-600 mb-6 flex items-center gap-3">
-                <Users className="w-5 h-5" weight="bold" />
-                {labels?.targetBeneficiaries ?? 'Target Beneficiaries'}
-              </h3>
-              <ul className="space-y-4">
-                {beneficiaries.map((ben, i) => (
-                  <li key={i} className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-gray-100/80 shadow-sm">
-                    <div className="w-2.5 h-2.5 rounded-full bg-earth-400 shrink-0" />
-                    <span className="text-gray-800 font-medium text-sm leading-snug">{ben}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
+            {beneficiaries && beneficiaries.length > 0 && (
+              <div className="bg-[#fcfaf7] rounded-[2rem] p-8 border border-[#f3ead8] shadow-sm">
+                <h3 className="text-xs font-bold uppercase tracking-widest text-earth-600 mb-6 flex items-center gap-3">
+                  <Users className="w-5 h-5" weight="bold" />
+                  {labels?.targetBeneficiaries ?? 'Target Beneficiaries'}
+                </h3>
+                <ul className="space-y-4">
+                  {beneficiaries.map((ben, i) => (
+                    <li key={i} className="flex items-center gap-3 bg-white p-3.5 rounded-xl border border-gray-100/80 shadow-sm">
+                      <div className="w-2.5 h-2.5 rounded-full bg-earth-400 shrink-0" />
+                      <span className="text-gray-800 font-medium text-sm leading-snug">{ben}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
             {/* Call to Actions */}
             <div className="space-y-4">

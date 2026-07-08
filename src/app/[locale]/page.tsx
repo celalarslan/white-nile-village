@@ -71,7 +71,7 @@ const PAGE_CONTENT = {
       metric4: "Agricultural Acreage",
       metric5: "Training Requests",
       metric6: "Urgent Clean Water Needs",
-      verifiedBadge: "Secure Database",
+      verifiedBadge: "Secure internal records",
     },
     programs: {
       sub: "NGO Services",
@@ -190,7 +190,7 @@ const PAGE_CONTENT = {
       metric4: "المساحات الزراعية (فدان)",
       metric5: "طلبات التدريب المهني",
       metric6: "احتياجات المياه الصالحة للشرب",
-      verifiedBadge: "قاعدة بيانات آمنة",
+      verifiedBadge: "سجلات داخلية آمنة",
     },
     programs: {
       sub: "خدمات المنظمة",
@@ -495,7 +495,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 </div>
                 <div className="bg-white p-4 rounded-xl border border-gray-100 shadow-soft">
                   <span className="block text-[8px] font-bold text-gray-450 uppercase tracking-widest">{t.dataModel.metric6}</span>
-                  <span className="text-xs font-bold text-earth-650 block mt-1">12 Villages</span>
+                  <span className="text-xs font-bold text-earth-650 block mt-1">
+                    {locale === 'ar' ? '١٢ قرية' : '12 Villages'}
+                  </span>
                 </div>
               </div>
             </div>
@@ -601,7 +603,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <p className="text-xs text-gray-500 leading-relaxed font-semibold mb-4">{t.projects.proj1Desc}</p>
               </div>
               <div className="pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-450 uppercase tracking-widest">
-                {t.projects.impactLabel} <span className="text-primary-800">500 families</span>
+                {t.projects.impactLabel} <span className="text-primary-800">{locale === 'ar' ? '٥٠٠ أسرة' : '500 families'}</span>
               </div>
             </div>
 
@@ -615,7 +617,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <p className="text-xs text-gray-500 leading-relaxed font-semibold mb-4">{t.projects.proj2Desc}</p>
               </div>
               <div className="pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-450 uppercase tracking-widest">
-                {t.projects.impactLabel} <span className="text-primary-800">1,000 certificates</span>
+                {t.projects.impactLabel} <span className="text-primary-800">{locale === 'ar' ? '١,٠٠٠ شهادة' : '1,000 certificates'}</span>
               </div>
             </div>
 
@@ -629,7 +631,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
                 <p className="text-xs text-gray-500 leading-relaxed font-semibold mb-4">{t.projects.proj3Desc}</p>
               </div>
               <div className="pt-3 border-t border-gray-100 text-[10px] font-bold text-gray-450 uppercase tracking-widest">
-                {t.projects.impactLabel} <span className="text-primary-800">10,000 seedlings</span>
+                {t.projects.impactLabel} <span className="text-primary-800">{locale === 'ar' ? '١٠,٠٠٠ شتلة' : '10,000 seedlings'}</span>
               </div>
             </div>
           </div>
@@ -673,7 +675,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <section className="section-padding bg-[#FAF7EF]/20 px-4">
         <div className="ngo-container max-w-4xl bg-white rounded-3xl p-8 md:p-12 border border-[#E8E5DD]/40 shadow-soft text-center space-y-6">
           <div className="max-w-2xl mx-auto space-y-3">
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-earth-650">Join Our Mission</span>
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-earth-650">
+              {locale === 'ar' ? 'شارك في رسالتنا' : 'Join Our Mission'}
+            </span>
             <h2 className="text-2xl md:text-3xl font-extrabold text-primary-900 leading-tight">
               {t.partner.title}
             </h2>

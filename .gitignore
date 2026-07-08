@@ -43,4 +43,6 @@ next-env.d.ts
 
 # review screenshots
 public/review-screenshots/
+/env.txt
+
 
