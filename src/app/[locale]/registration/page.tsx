@@ -6,13 +6,21 @@ import { Locale } from '@/lib/types';
 import arDict from '@/dictionaries/ar.json';
 import enDict from '@/dictionaries/en.json';
 import { generateApplicationNumber, cn } from '@/lib/utils';
-import { CheckCircle as CheckCircle2, CaretRight as ChevronRight, CaretLeft as ChevronLeft, PaperPlaneRight as Send, ShieldWarning as ShieldAlert, Clock, ShieldCheck, Database, UploadSimple as Upload, FileText, Check, LockKey as Lock } from '@phosphor-icons/react';
+import { 
+  CheckCircle as CheckCircle2, 
+  CaretRight as ChevronRight, 
+  CaretLeft as ChevronLeft, 
+  PaperPlaneRight as Send, 
+  ShieldWarning as ShieldAlert, 
+  Clock, 
+  ShieldCheck, 
+  Check, 
+  LockKey as Lock,
+  Target,
+  Tree,
+  MagnifyingGlass
+} from '@phosphor-icons/react';
 import { isRTL } from '@/lib/i18n/config';
-
-const getNavHref = (locale: string, path: string = "") => {
-  const cleanPath = path.replace(/^\/+/, "");
-  return cleanPath ? `/${locale}/${cleanPath}` : `/${locale}`;
-};
 
 export default function RegistrationPage() {
   const pathname = usePathname();
@@ -27,7 +35,6 @@ export default function RegistrationPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [submitError, setSubmitError] = useState('');
   const [website, setWebsite] = useState('');
-  
 
   // Validation errors state
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -62,9 +69,6 @@ export default function RegistrationPage() {
     trainingNeed: '',
     notes: '',
     consent1: false,
-    consent2: false,
-    consent3: false,
-    consent4: false,
   });
 
   useEffect(() => {
@@ -73,14 +77,22 @@ export default function RegistrationPage() {
 
   const totalSteps = 7;
 
-  const steps = [
-    dict.registration.step1,
-    dict.registration.step2,
-    dict.registration.step3,
-    dict.registration.step4,
-    dict.registration.step5,
-    dict.registration.step6,
-    dict.registration.step7,
+  const steps = locale === 'ar' ? [
+    'معلومات الأسرة',
+    'التعليم والدخل',
+    'ملف الصمغ العربي',
+    'الملف الزراعي',
+    'ملف الثروة الحيوانية',
+    'تقييم الاحتياجات',
+    'الموافقة والإرسال'
+  ] : [
+    'Family Information',
+    'Education & Income',
+    'Gum Arabic Profile',
+    'Agriculture Profile',
+    'Livestock Profile',
+    'Needs Assessment',
+    'Consent & Submit'
   ];
 
   const handleInputChange = (field: string, value: any) => {
@@ -110,10 +122,7 @@ export default function RegistrationPage() {
     }
 
     if (currentStep === 7) {
-      if (!formData.consent1) stepErrors.consent1 = locale === 'ar' ? 'يجب تأكيد دقة البيانات' : 'Confirmation is required';
-      if (!formData.consent2) stepErrors.consent2 = locale === 'ar' ? 'مطلوب الموافقة على معالجة البيانات' : 'Consent is required';
-      if (!formData.consent3) stepErrors.consent3 = locale === 'ar' ? 'مطلوب تأكيد سرية البيانات الشخصية' : 'Consent to data privacy is required';
-      if (!formData.consent4) stepErrors.consent4 = locale === 'ar' ? 'مطلوب تأكيد فهم طبيعة البرنامج التنموية' : 'Consent is required';
+      if (!formData.consent1) stepErrors.consent1 = locale === 'ar' ? 'يجب تأكيد الموافقة للمتابعة' : 'Consent is required to proceed';
     }
 
     setErrors(stepErrors);
@@ -181,9 +190,9 @@ export default function RegistrationPage() {
           trainingNeed: formData.trainingNeed,
           notes: formData.notes,
           consent1: formData.consent1,
-          consent2: formData.consent2,
-          consent3: formData.consent3,
-          consent4: formData.consent4,
+          consent2: formData.consent1,
+          consent3: formData.consent1,
+          consent4: formData.consent1,
           website,
         }),
       });
@@ -195,22 +204,84 @@ export default function RegistrationPage() {
       } else {
         setSubmitError(
           locale === 'ar'
-            ? 'فشل إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل مع اللجنة المحلية.'
-            : 'Submission failed. Please try again or contact the local committee.'
+            ? 'فشل إرسال الطلب للمراجعة الداخلية. يرجى المحاولة مرة أخرى أو التواصل مع اللجنة المحلية.'
+            : 'Internal review submission failed. Please try again or contact the local committee.'
         );
       }
     } catch (error) {
       console.error('Error submitting form:', error);
       setSubmitError(
         locale === 'ar'
-          ? 'فشل إرسال الطلب. يرجى المحاولة مرة أخرى أو التواصل مع اللجنة المحلية.'
-          : 'Submission failed. Please try again or contact the local committee.'
+          ? 'فشل إرسال الطلب للمراجعة الداخلية. يرجى المحاولة مرة أخرى أو التواصل مع اللجنة المحلية.'
+          : 'Internal review submission failed. Please try again or contact the local committee.'
       );
     } finally {
       setIsLoading(false);
     }
   };
 
+  const infoCards = locale === 'ar' ? [
+    {
+      title: '٥٠٠ أسرة',
+      desc: 'المستهدف في المرحلة الأولى من التسجيل المجتمعي',
+      icon: <Target className="w-5 h-5 text-[#9A6B3F]" />
+    },
+    {
+      title: 'منتجو الصمغ العربي',
+      desc: 'رعاية أشجار الهشاب والطلح، التدريب والجني المستدام',
+      icon: <Tree className="w-5 h-5 text-[#9A6B3F]" />
+    },
+    {
+      title: 'مراجعة داخلية محدودة',
+      desc: 'البيانات الشخصية لن يتم نشرها للعامة',
+      icon: <Lock className="w-5 h-5 text-[#9A6B3F]" />
+    },
+    {
+      title: 'التحقق الميداني',
+      desc: 'سيتم التحقق من معلومات التربة والمياه وتجارب المحاصيل خلال التقييم الميداني',
+      icon: <MagnifyingGlass className="w-5 h-5 text-[#9A6B3F]" />
+    }
+  ] : [
+    {
+      title: '500 Households',
+      desc: 'First-phase community registration target',
+      icon: <Target className="w-5 h-5 text-[#9A6B3F]" />
+    },
+    {
+      title: 'Gum Arabic Producers',
+      desc: 'Hashab and Talh tree care, training and sustainable harvesting',
+      icon: <Tree className="w-5 h-5 text-[#9A6B3F]" />
+    },
+    {
+      title: 'Restricted internal review',
+      desc: 'Personal data is not published publicly',
+      icon: <Lock className="w-5 h-5 text-[#9A6B3F]" />
+    },
+    {
+      title: 'Field verification',
+      desc: 'Soil, water and crop trial information will be verified during field assessment',
+      icon: <MagnifyingGlass className="w-5 h-5 text-[#9A6B3F]" />
+    }
+  ];
+
+  const renderSidePanel = () => (
+    <div className="space-y-4">
+      <h3 className="text-xs font-extrabold text-[#9A6B3F] uppercase tracking-widest border-b border-[#E7E0D2]/50 pb-2 mb-3">
+        {locale === 'ar' ? 'معلومات البرنامج' : 'Program Information'}
+      </h3>
+      {infoCards.map((card, idx) => (
+        <div key={idx} className="bg-white rounded-2xl border border-[#E7E0D2]/50 p-4 shadow-sm flex items-start gap-3 bg-gradient-to-b from-white to-gray-50/20">
+          <div className="w-9 h-9 rounded-xl bg-[#FAF7EF] flex items-center justify-center shrink-0">
+            {card.icon}
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-xs font-extrabold text-gray-900 leading-tight">{card.title}</h4>
+            <p className="text-[10px] text-gray-500 leading-relaxed font-semibold">{card.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 
   if (isSuccess) {
     return (
@@ -220,12 +291,12 @@ export default function RegistrationPage() {
             <CheckCircle2 className="w-7 h-7 text-emerald-800" />
           </div>
           <h1 className="text-2xl md:text-3xl font-extrabold text-primary-900 mb-3 font-sans">
-            {locale === 'ar' ? 'تم إرسال التسجيل بنجاح.' : 'Registration submitted successfully.'}
+            {locale === 'ar' ? 'تم إرسال التسجيل للمراجعة بنجاح' : 'Submitted for Internal Review Successfully'}
           </h1>
           <p className="text-xs text-gray-500 mb-8 max-w-md mx-auto leading-relaxed">
             {locale === 'ar' 
-              ? `رقم طلبك هو ${appNumber}.` 
-              : `Your application number is ${appNumber}.`}
+              ? 'تم استلام معلومات هانك بنجاح للمراجعة الداخلية والتقييم الميداني.' 
+              : 'Your family registration details have been received for internal review and field verification.'}
           </p>
           
           <div className="inline-block bg-[#FAF7EF] border border-[#E7E0D2]/50 px-6 py-4 rounded-xl mb-8">
@@ -249,118 +320,63 @@ export default function RegistrationPage() {
   return (
     <div className="min-h-screen py-16 px-4 sm:px-6 lg:px-8 bg-[#FAF7EF]" dir={rtl ? 'rtl' : 'ltr'}>
       
-      {/* Draft Save Toast notification */}
+      {/* Toast notification */}
       {showDraftToast && (
         <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 bg-[#123524] text-white px-5 py-3 rounded-xl shadow-lg border border-[#1F4D36] flex items-center gap-2.5 transition-all animate-fade-in">
           <Check className="w-4 h-4 text-[#F4E8D0]" />
-          <span className="text-xs font-bold">{dict.registration.draftSaved}</span>
+          <span className="text-xs font-bold">{locale === 'ar' ? 'حفظ كمسودة — قريباً' : 'Save Draft — Coming Soon'}</span>
         </div>
       )}
 
-      <div className="ngo-container max-w-6xl">
+      <div className="ngo-container max-w-6xl mx-auto space-y-8">
         
         {/* 1. Page Intro / Hero */}
-        <div className="text-center mb-12 space-y-3">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#F4E8D0]/50 border border-[#E7E0D2] text-[9px] font-extrabold text-earth-700 uppercase tracking-widest">
-            {dict.registration.badge}
+        <div className="text-center max-w-3xl mx-auto space-y-3">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#F4E8D0]/40 border border-[#E7E0D2]/80 text-[10px] font-bold uppercase tracking-widest text-[#9A6B3F]">
+            {locale === 'ar' ? 'مراجعة داخلية محدودة' : 'Restricted Internal Review'}
           </span>
-          <h1 className="text-2xl md:text-3.5xl font-extrabold text-primary-900 tracking-tight">{dict.registration.title}</h1>
-          <p className="text-xs text-gray-500 max-w-xl mx-auto leading-relaxed font-semibold">{dict.registration.subtitle}</p>
-          <span className="block text-[9px] text-gray-400 font-bold uppercase tracking-wider">{dict.registration.trustLine}</span>
+          <h1 className="text-2xl md:text-3.5xl font-extrabold text-[#123524] tracking-tight">
+            {locale === 'ar' ? 'تسجيل الأسر' : 'Household Registration'}
+          </h1>
+          <p className="text-xs md:text-sm text-gray-600 leading-relaxed font-semibold">
+            {locale === 'ar' 
+              ? 'جمع معلومات الأسر بطريقة محترمة وبموافقة أصحابها، لدعم التدريب، ورعاية أشجار الصمغ العربي، والتخطيط التنموي المستقبلي.'
+              : 'Collecting respectful, consent-based household information to support training, gum arabic tree care, and future rural development planning.'}
+          </p>
+        </div>
+
+        {/* 2. Privacy / Purpose Notice */}
+        <div className="bg-[#FAF7EF]/90 rounded-2xl p-5 border border-[#E7E0D2] shadow-soft max-w-3xl mx-auto flex items-start gap-4 transition-all">
+          <div className="w-10 h-10 rounded-xl bg-primary-50 flex items-center justify-center text-primary-850 shrink-0">
+            <Lock className="w-5 h-5 text-[#123524]" />
+          </div>
+          <div className="space-y-1">
+            <h4 className="text-xs font-extrabold text-primary-900 uppercase tracking-wider">
+              {locale === 'ar' ? 'إشعار السرية ومطابقة البيانات' : 'Protected Internal Records Notice'}
+            </h4>
+            <p className="text-xs text-gray-500 leading-relaxed font-semibold">
+              {locale === 'ar'
+                ? 'تُistخدم المعلومات الشخصية فقط للمراجعة الداخلية، وتقييم الاحتياجات، وتنسيق التدريب، والتخطيط لفرص الدعم المستقبلية. ولا يتم نشرها للعامة.'
+                : 'Personal information is used only for internal review, needs assessment, training coordination and future support planning. It is not published publicly.'}
+            </p>
+          </div>
         </div>
 
         {/* Desktop grid layout: left forms + right side details */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Main Block (Form and Stepper) */}
           <div className="lg:col-span-8 space-y-8">
             
-            {/* 2. Trust and Privacy Notice */}
-            <div className="bg-[#FAF7EF]/90 rounded-xl p-4 border border-[#E7E0D2] shadow-soft flex items-start gap-3">
-              <ShieldAlert className="w-5 h-5 text-[#9A6B3F] shrink-0 mt-0.5" />
-              <div className="space-y-2">
-                <h4 className="text-xs font-extrabold text-primary-900 uppercase tracking-wider">{dict.registration.privacyTitle}</h4>
-                <ul className="text-[11px] text-gray-655 leading-loose font-medium space-y-1 list-disc list-inside">
-                  <li>{dict.registration.privacyDesc1}</li>
-                  <li>{dict.registration.privacyDesc2}</li>
-                  <li>{dict.registration.privacyDesc3}</li>
-                  <li>{dict.registration.privacyDesc4}</li>
-                  <li>{dict.registration.privacyDesc5}</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* 3. Application Summary Panel (Mobile) */}
-            <div className="lg:hidden block">
-  
-            <div className="bg-white rounded-[1.5rem] border border-[#E7E0D2]/60 p-6 shadow-sm space-y-5 bg-gradient-to-b from-white to-gray-50/30">
-              <h3 className="text-xs font-extrabold text-[#9A6B3F] uppercase tracking-widest border-b border-[#E7E0D2]/50 pb-2">
-                {dict.registration.summaryTitle}
-              </h3>
-              
-              <div className="space-y-4 text-xs font-semibold text-gray-700">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.applicationNumber}</span>
-                  <span className="font-mono text-[11px] font-medium text-primary-800 bg-gray-50 px-2 py-0.5 rounded border border-gray-100">{appNumber}</span>
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{locale === 'ar' ? 'القسم الحالي' : 'Current Step'}</span>
-                  <span className="text-primary-900 font-semibold">
-                    {locale === 'ar' ? `القسم ${step} من ${totalSteps}` : `Section ${step} of ${totalSteps}`}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.statusLabel}</span>
-                  <span className="inline-flex items-center gap-1.5 text-xs text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-100">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                    {dict.registration.statusValue}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.estTimeLabel}</span>
-                  <span className="flex items-center gap-1 text-gray-600">
-                    <Clock className="w-3.5 h-3.5" />
-                    {dict.registration.estTimeValue}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.protectionLabel}</span>
-                  <span className="flex items-center gap-1 text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 font-bold text-[10px] uppercase tracking-wider">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    {dict.registration.protectionValue}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.langLabel}</span>
-                  <span className="uppercase text-[10px] font-bold text-primary-900 bg-gray-50 px-2.5 py-1 rounded border border-gray-150/40">
-                    {locale}
-                  </span>
-                </div>
-              </div>
-
-              <div className="pt-2 border-t border-[#E7E0D2]/50 text-center">
-                <p className="text-[10px] text-gray-400 leading-relaxed font-bold uppercase tracking-wider flex items-center justify-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5" />
-                  {locale === 'ar' ? 'مراجعة داخلية محدودة' : 'Restricted internal review'}
-                </p>
-              </div>
-            </div>
-                      </div>
-
-            {/* 4. Multi-step progress indicator */}
-            <div className="hidden md:block bg-white rounded-2xl border border-[#E7E0D2]/40 p-5 shadow-soft overflow-x-auto scrollbar-none">
-              <div className="flex justify-between items-center min-w-[650px] relative px-4">
+            {/* 3. Stepper (Progress card) */}
+            <div className="bg-white rounded-3xl border border-[#E7E0D2]/70 p-6 shadow-soft overflow-x-auto scrollbar-none">
+              {/* Desktop Stepper */}
+              <div className="hidden md:flex justify-between items-center relative px-2">
                 {steps.map((label, idx) => (
                   <div key={idx} className="flex flex-col items-center flex-1 relative z-10">
                     <button
                       type="button"
                       onClick={() => {
-                        // Allow skipping only to completed steps
                         if (idx + 1 < step) {
                           setStep(idx + 1);
                         } else if (idx + 1 > step && validateStep(step)) {
@@ -368,41 +384,85 @@ export default function RegistrationPage() {
                         }
                       }}
                       className={cn(
-                        "w-7.5 h-7.5 md:w-8.5 md:h-8.5 rounded-full flex items-center justify-center text-[10px] md:text-xs font-bold transition-all duration-300 cursor-pointer border",
+                        "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold transition-all duration-300 cursor-pointer border",
                         step > idx + 1 
-                          ? 'bg-[#3F7D4A] border-[#3F7D4A] text-white shadow-soft' 
+                          ? 'bg-[#3F7D4A]/10 border-[#3F7D4A]/30 text-[#3F7D4A]' 
                           : step === idx + 1 
-                            ? 'bg-[#1F4D36] border-[#1F4D36] text-white ring-8 ring-[#1F4D36]/10 scale-105 shadow-md' 
+                            ? 'bg-[#123524] border-[#123524] text-white ring-4 ring-[#123524]/10 scale-105 shadow-sm' 
                             : 'bg-gray-50 border-gray-200 text-gray-400'
                       )}
                     >
-                      {step > idx + 1 ? <Check className="w-3.5 h-3.5" /> : idx + 1}
+                      {step > idx + 1 ? <Check className="w-4 h-4" /> : idx + 1}
                     </button>
                     <span className={cn(
-                      "text-[9px] font-extrabold mt-2.5 text-center max-w-[85px] leading-tight",
-                      step === idx + 1 ? 'text-[#1F4D36]' : 'text-gray-400'
+                      "text-[10px] font-bold mt-2.5 text-center max-w-[80px] leading-tight transition-colors",
+                      step === idx + 1 ? 'text-[#123524] font-extrabold' : 'text-gray-400'
                     )}>{label}</span>
                   </div>
                 ))}
-                {/* Connecting Line */}
-                <div className="absolute top-3.5 md:top-4.5 left-12 right-12 h-[1px] bg-gray-150 z-0">
+                {/* Stepper Connecting Line */}
+                <div className="absolute top-4 left-10 right-10 h-[2px] bg-gray-100 z-0">
                   <div 
-                    className="h-full bg-[#3F7D4A] transition-all duration-500" 
+                    className="h-full bg-[#123524] transition-all duration-500" 
                     style={{ width: `${((step - 1) / (totalSteps - 1)) * 100}%` }}
                   />
                 </div>
               </div>
+
+              {/* Mobile Stepper - Mini Steps Indicator */}
+              <div className="flex md:hidden items-center justify-between">
+                <span className="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest">
+                  {locale === 'ar' ? `القسم ${step} من ${totalSteps}` : `Step ${step} of ${totalSteps}`}
+                </span>
+                <div className="flex gap-1.5">
+                  {Array.from({ length: totalSteps }).map((_, idx) => (
+                    <div 
+                      key={idx} 
+                      className={cn(
+                        "h-1.5 rounded-full transition-all duration-300",
+                        step === idx + 1 ? "w-6 bg-[#123524]" : "w-1.5 bg-gray-200"
+                      )} 
+                    />
+                  ))}
+                </div>
+                <span className="text-[10px] font-extrabold text-[#123524]">
+                  {steps[step - 1]}
+                </span>
+              </div>
             </div>
 
-            {/* 5. Current step form card */}
-            <div className="bg-white rounded-3xl border border-[#E7E0D2] shadow-sm overflow-hidden">
+            {/* Mobile support module cards - side panel becomes top/bottom cards on mobile */}
+            <div className="lg:hidden space-y-4">
+              <div className="bg-white rounded-3xl border border-[#E7E0D2]/60 p-6 shadow-sm space-y-4">
+                <h3 className="text-xs font-extrabold text-[#9A6B3F] uppercase tracking-widest border-b border-[#E7E0D2]/50 pb-2">
+                  {locale === 'ar' ? 'معلومات التسجيل والمستهدف' : 'Registration Information'}
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {infoCards.map((card, idx) => (
+                    <div key={idx} className="bg-[#FAF7EF]/20 rounded-xl border border-[#E7E0D2]/40 p-4 flex items-start gap-3">
+                      <div className="w-8.5 h-8.5 rounded-lg bg-[#FAF7EF] flex items-center justify-center shrink-0">
+                        {card.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-bold text-gray-900 leading-tight">{card.title}</h4>
+                        <p className="text-[10px] text-gray-500 mt-1 font-semibold leading-relaxed">{card.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Multi-step Form Card (rounded-3xl, shadow, cream border) */}
+            <div className="bg-white rounded-3xl border border-[#E7E0D2]/80 shadow-soft overflow-hidden">
               
-              {/* Stepper Label Panel for Mobile */}
-              <div className="bg-gray-50/50 px-6 py-4 border-b border-gray-100/70 flex md:hidden justify-between items-center">
-                <span className="text-[9px] font-extrabold text-gray-400 uppercase tracking-widest">
-                  {locale === 'ar' ? `القسم ${step} من ${totalSteps}` : `Section ${step} of ${totalSteps}`}
+              <div className="bg-gray-50/50 px-6 py-4 border-b border-gray-100/70 flex justify-between items-center">
+                <span className="text-[10px] font-extrabold text-primary-900 uppercase tracking-wider">
+                  {steps[step - 1]}
                 </span>
-                <span className="text-[10px] font-bold text-primary-900">{steps[step - 1]}</span>
+                <span className="text-[10px] font-bold text-gray-400 font-mono">
+                  {appNumber}
+                </span>
               </div>
 
               <form onSubmit={handleSubmit} className="p-6 md:p-10 space-y-8">
@@ -410,9 +470,9 @@ export default function RegistrationPage() {
                 {/* Step 1: Family Information */}
                 {step === 1 && (
                   <div className="space-y-8 animate-fade-in">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">
+                        <label className="block text-xs font-bold text-[#123524] mb-2">
                           {dict.registration.headOfFamily} <span className="text-rose-500">*</span>
                         </label>
                         <input 
@@ -420,16 +480,16 @@ export default function RegistrationPage() {
                           value={formData.headOfFamily}
                           onChange={(e) => handleInputChange('headOfFamily', e.target.value)}
                           className={cn(
-                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400",
-                            errors.headOfFamily ? "border-rose-500 focus:border-rose-500" : "border-gray-200"
+                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400 focus:ring-4 focus:ring-[#123524]/5",
+                            errors.headOfFamily ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/5" : "border-gray-200"
                           )} 
-                          placeholder="e.g. Ali Ahmed" 
+                          placeholder={locale === 'ar' ? 'مثال: علي أحمد' : 'e.g. Ali Ahmed'} 
                         />
                         {errors.headOfFamily && <span className="text-[10px] text-rose-500 font-bold block mt-1">{errors.headOfFamily}</span>}
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">
+                        <label className="block text-xs font-bold text-[#123524] mb-2">
                           {dict.registration.phone} <span className="text-rose-500">*</span>
                         </label>
                         <input 
@@ -437,8 +497,8 @@ export default function RegistrationPage() {
                           value={formData.phone}
                           onChange={(e) => handleInputChange('phone', e.target.value)}
                           className={cn(
-                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400",
-                            errors.phone ? "border-rose-500 focus:border-rose-500" : "border-gray-200"
+                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400 focus:ring-4 focus:ring-[#123524]/5",
+                            errors.phone ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/5" : "border-gray-200"
                           )} 
                           placeholder="+249..." 
                           dir="ltr"
@@ -447,7 +507,7 @@ export default function RegistrationPage() {
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">
+                        <label className="block text-xs font-bold text-[#123524] mb-2">
                           {dict.registration.village} <span className="text-rose-500">*</span>
                         </label>
                         <input 
@@ -455,16 +515,16 @@ export default function RegistrationPage() {
                           value={formData.village}
                           onChange={(e) => handleInputChange('village', e.target.value)}
                           className={cn(
-                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400",
-                            errors.village ? "border-rose-500 focus:border-rose-500" : "border-gray-200"
+                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400 focus:ring-4 focus:ring-[#123524]/5",
+                            errors.village ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/5" : "border-gray-200"
                           )} 
-                          placeholder="e.g. Um Rimta" 
+                          placeholder={locale === 'ar' ? 'مثال: أم رمطة' : 'e.g. Um Rimta'} 
                         />
                         {errors.village && <span className="text-[10px] text-rose-500 font-bold block mt-1">{errors.village}</span>}
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">
+                        <label className="block text-xs font-bold text-[#123524] mb-2">
                           {dict.registration.idNumber} <span className="text-rose-500">*</span>
                         </label>
                         <input 
@@ -472,62 +532,62 @@ export default function RegistrationPage() {
                           value={formData.idNumber}
                           onChange={(e) => handleInputChange('idNumber', e.target.value)}
                           className={cn(
-                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400",
-                            errors.idNumber ? "border-rose-500 focus:border-rose-500" : "border-gray-200"
+                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400 focus:ring-4 focus:ring-[#123524]/5",
+                            errors.idNumber ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/5" : "border-gray-200"
                           )} 
-                          placeholder="National ID Number" 
+                          placeholder={locale === 'ar' ? 'رقم الهوية الوطنية' : 'National ID Number'} 
                         />
                         {errors.idNumber && <span className="text-[10px] text-rose-500 font-bold block mt-1">{errors.idNumber}</span>}
                       </div>
                     </div>
 
                     {/* Grouped section: Members */}
-                    <div className="pt-8 mt-2 border-t border-gray-100">
-                      <h4 className="text-[10px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-1.5 border-b border-gray-100/70 mb-4">
-                        {locale === 'ar' ? 'تكوين الأسرة' : 'Household Composition'}
+                    <div className="pt-6 border-t border-gray-150/40">
+                      <h4 className="text-[11px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-2 border-b border-gray-100 mb-4">
+                        {locale === 'ar' ? 'تكوين الأسرة والتركيبة السكانية' : 'Household Composition & Demographics'}
                       </h4>
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                         <div>
-                          <label className="block text-[9px] font-medium text-gray-500 uppercase tracking-wider mb-2 leading-relaxed">{dict.registration.householdSize}</label>
+                          <label className="block text-[11px] font-bold text-gray-650 mb-2">{dict.registration.householdSize}</label>
                           <input 
                             type="number" 
                             min="1" 
                             value={formData.householdSize}
                             onChange={(e) => handleInputChange('householdSize', e.target.value)}
-                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                             placeholder="0" 
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-medium text-gray-500 uppercase tracking-wider mb-2 leading-relaxed">{dict.registration.childrenCount}</label>
+                          <label className="block text-[11px] font-bold text-gray-650 mb-2">{dict.registration.childrenCount}</label>
                           <input 
                             type="number" 
                             min="0" 
                             value={formData.childrenCount}
                             onChange={(e) => handleInputChange('childrenCount', e.target.value)}
-                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                             placeholder="0" 
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-medium text-gray-500 uppercase tracking-wider mb-2 leading-relaxed">{dict.registration.womenCount}</label>
+                          <label className="block text-[11px] font-bold text-gray-650 mb-2">{dict.registration.womenCount}</label>
                           <input 
                             type="number" 
                             min="0" 
                             value={formData.womenCount}
                             onChange={(e) => handleInputChange('womenCount', e.target.value)}
-                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                             placeholder="0" 
                           />
                         </div>
                         <div>
-                          <label className="block text-[9px] font-medium text-gray-500 uppercase tracking-wider mb-2 leading-relaxed">{dict.registration.youthCount}</label>
+                          <label className="block text-[11px] font-bold text-gray-650 mb-2">{dict.registration.youthCount}</label>
                           <input 
                             type="number" 
                             min="0" 
                             value={formData.youthCount}
                             onChange={(e) => handleInputChange('youthCount', e.target.value)}
-                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                            className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                             placeholder="0" 
                           />
                         </div>
@@ -536,22 +596,22 @@ export default function RegistrationPage() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
                       <div>
-                        <label className="block text-[9px] font-medium text-gray-500 uppercase tracking-wider mb-2 leading-relaxed">{dict.registration.schoolChildren}</label>
+                        <label className="block text-[11px] font-bold text-gray-650 mb-2">{dict.registration.schoolChildren}</label>
                         <input 
                           type="number" 
                           min="0" 
                           value={formData.schoolChildren}
                           onChange={(e) => handleInputChange('schoolChildren', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                           placeholder="0" 
                         />
                       </div>
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.hasDisabled}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.hasDisabled}</label>
                         <div className="flex gap-4">
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasDisabled === 'yes' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-200 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasDisabled === 'yes' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -564,8 +624,8 @@ export default function RegistrationPage() {
                             {dict.registration.yes}
                           </label>
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasDisabled === 'no' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-205 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasDisabled === 'no' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -582,16 +642,16 @@ export default function RegistrationPage() {
                     </div>
 
                     {/* Document Upload Status Info Box */}
-                    <div className="pt-8 mt-2 border-t border-gray-100">
-                      <div className="bg-[#fcfaf7] border border-[#f3ead8] rounded-xl p-5 flex items-start gap-4 shadow-sm">
-                        <div className="bg-[#f3ead8] p-2.5 rounded-lg text-earth-700 shrink-0">
-                          <ShieldAlert className="w-5 h-5" />
+                    <div className="pt-6 border-t border-gray-150/40">
+                      <div className="bg-[#FAF7EF]/40 border border-[#E7E0D2]/60 rounded-2xl p-5 flex items-start gap-4">
+                        <div className="bg-[#F4E8D0]/60 p-2.5 rounded-xl text-earth-700 shrink-0">
+                          <ShieldAlert className="w-5 h-5 text-[#9A6B3F]" />
                         </div>
                         <div>
-                          <h5 className="font-bold text-gray-900 text-sm mb-1">
-                            {locale === 'ar' ? 'معالجة البيانات والوثائق' : 'Data & Document Security'}
+                          <h5 className="font-bold text-gray-900 text-xs uppercase tracking-wider mb-1">
+                            {locale === 'ar' ? 'وثائق الهوية والتسجيل التجريبي' : 'Identity Verification & Staging limits'}
                           </h5>
-                          <p className="text-gray-600 text-xs leading-relaxed">
+                          <p className="text-gray-655 text-[11px] leading-relaxed font-semibold">
                             {locale === 'ar' 
                               ? 'جمع المستندات غير مفعل في هذه النسخة التجريبية. وإذا كانت هناك حاجة إلى مستندات لاحقاً، فسيتم جمعها فقط عبر الموظفين المخولين وباستخدام تخزين آمن.'
                               : 'Document collection is not active in this staging version. If documents are required later, they will be collected only through authorized staff and secure storage.'
@@ -607,9 +667,9 @@ export default function RegistrationPage() {
                 {/* Step 2: Education & Income */}
                 {step === 2 && (
                   <div className="space-y-8 animate-fade-in">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">
+                        <label className="block text-xs font-bold text-[#123524] mb-2">
                           {dict.registration.mainIncome} <span className="text-rose-500">*</span>
                         </label>
                         <input 
@@ -617,22 +677,22 @@ export default function RegistrationPage() {
                           value={formData.mainIncome}
                           onChange={(e) => handleInputChange('mainIncome', e.target.value)}
                           className={cn(
-                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400",
-                            errors.mainIncome ? "border-rose-500 focus:border-rose-500" : "border-gray-200"
+                            "w-full h-12 rounded-lg px-4 border text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white transition-all placeholder-gray-400 focus:ring-4 focus:ring-[#123524]/5",
+                            errors.mainIncome ? "border-rose-500 focus:border-rose-500 focus:ring-rose-500/5" : "border-gray-200"
                           )} 
-                          placeholder="e.g. Gum Arabic, Farming" 
+                          placeholder={locale === 'ar' ? 'مثال: الصمغ العربي، الزراعة البسيطة' : 'e.g. Gum Arabic, Simple Farming'} 
                         />
                         {errors.mainIncome && <span className="text-[10px] text-rose-500 font-bold block mt-1">{errors.mainIncome}</span>}
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.monthlyIncome}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.monthlyIncome}</label>
                         <input 
                           type="number" 
                           value={formData.monthlyIncome}
                           onChange={(e) => handleInputChange('monthlyIncome', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
-                          placeholder="Amount in Sudanese Pounds" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
+                          placeholder={locale === 'ar' ? 'المبلغ بالجنيه السوداني' : 'Amount in Sudanese Pounds'} 
                         />
                       </div>
                     </div>
@@ -642,26 +702,26 @@ export default function RegistrationPage() {
                 {/* Step 3: Gum Arabic Profile */}
                 {step === 3 && (
                   <div className="space-y-8 animate-fade-in">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.treeCount}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.treeCount}</label>
                         <input 
                           type="number" 
                           value={formData.treeCount}
                           onChange={(e) => handleInputChange('treeCount', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                           placeholder="0" 
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.annualProduction}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.annualProduction}</label>
                         <input 
                           type="text" 
                           value={formData.annualProduction}
                           onChange={(e) => handleInputChange('annualProduction', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
-                          placeholder="e.g. 150 kg" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
+                          placeholder={locale === 'ar' ? 'مثال: ١٥٠ كجم' : 'e.g. 150 kg'} 
                         />
                       </div>
                     </div>
@@ -671,15 +731,17 @@ export default function RegistrationPage() {
                 {/* Step 4: Agriculture Profile */}
                 {step === 4 && (
                   <div className="space-y-8 animate-fade-in">
-                    <h4 className="text-[10px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-1.5 border-b border-gray-100/70 mb-4">Land Details</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 pt-2">
+                    <h4 className="text-[11px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-2 border-b border-gray-100 mb-4">
+                      {locale === 'ar' ? 'بيانات الأراضي والمحاصيل التجريبية' : 'Land Details & Trial Crop Suitability'}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.hasLand}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.hasLand}</label>
                         <div className="flex gap-4">
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasLand === 'yes' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-200 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasLand === 'yes' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -691,8 +753,8 @@ export default function RegistrationPage() {
                             {dict.registration.yes}
                           </label>
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasLand === 'no' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-205 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasLand === 'no' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -707,44 +769,44 @@ export default function RegistrationPage() {
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.landSize}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.landSize}</label>
                         <input 
                           type="text" 
                           value={formData.landSize}
                           onChange={(e) => handleInputChange('landSize', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
-                          placeholder="e.g. 5 Feddans" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
+                          placeholder={locale === 'ar' ? 'مثال: ٥ أفدنة' : 'e.g. 5 Feddans'} 
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.waterSource}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.waterSource}</label>
                         <input 
                           type="text" 
                           value={formData.waterSource}
                           onChange={(e) => handleInputChange('waterSource', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
-                          placeholder="e.g. River, Well" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
+                          placeholder={locale === 'ar' ? 'تمت الإشارة محلياً إلى توفر المياه وسيتم التحقق من ذلك' : 'Reported local access (to be verified)'} 
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.crops}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.crops}</label>
                         <input 
                           type="text" 
                           value={formData.crops}
                           onChange={(e) => handleInputChange('crops', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
-                          placeholder="e.g. Tomato, Sorghum" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
+                          placeholder={locale === 'ar' ? 'مثال: محاصيل تجريبية كبذور الطماطم والخضروات' : 'e.g. Trial vegetables, sorghum'} 
                         />
                       </div>
 
                       <div className="md:col-span-2">
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.suitableForTomato}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.suitableForTomato}</label>
                         <div className="flex gap-4">
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.suitableForTomato === 'yes' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-200 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.suitableForTomato === 'yes' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -756,8 +818,8 @@ export default function RegistrationPage() {
                             {dict.registration.yes}
                           </label>
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.suitableForTomato === 'no' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-205 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.suitableForTomato === 'no' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -778,37 +840,39 @@ export default function RegistrationPage() {
                 {/* Step 5: Livestock Profile */}
                 {step === 5 && (
                   <div className="space-y-8 animate-fade-in">
-                    <h4 className="text-[10px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-1.5 border-b border-gray-100/70 mb-4">Livestock Details</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 pt-2">
+                    <h4 className="text-[11px] font-extrabold text-[#9A6B3F] uppercase tracking-widest pb-2 border-b border-gray-100 mb-4">
+                      {locale === 'ar' ? 'أصول الثروة الحيوانية والاحتياجات' : 'Livestock Assets & Feed Needs'}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.cattleCount}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.cattleCount}</label>
                         <input 
                           type="number" 
                           value={formData.cattleCount}
                           onChange={(e) => handleInputChange('cattleCount', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                           placeholder="0" 
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.sheepGoatCount}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.sheepGoatCount}</label>
                         <input 
                           type="number" 
                           value={formData.sheepGoatCount}
                           onChange={(e) => handleInputChange('sheepGoatCount', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
                           placeholder="0" 
                         />
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.hasMilkProduction}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.hasMilkProduction}</label>
                         <div className="flex gap-4">
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasMilkProduction === 'yes' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-200 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasMilkProduction === 'yes' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -820,8 +884,8 @@ export default function RegistrationPage() {
                             {dict.registration.yes}
                           </label>
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasMilkProduction === 'no' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-205 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasMilkProduction === 'no' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -836,11 +900,11 @@ export default function RegistrationPage() {
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.hasVetSupport}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.hasVetSupport}</label>
                         <div className="flex gap-4">
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasVetSupport === 'yes' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-200 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasVetSupport === 'yes' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -852,8 +916,8 @@ export default function RegistrationPage() {
                             {dict.registration.yes}
                           </label>
                           <label className={cn(
-                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-lg border text-xs font-bold transition-all flex-1 justify-center",
-                            formData.hasVetSupport === 'no' ? 'bg-[#1F4D36]/5 border-[#1F4D36] text-[#1F4D36]' : 'border-gray-205 bg-white hover:bg-gray-50'
+                            "flex items-center gap-2 cursor-pointer py-3 px-6 rounded-xl border text-xs font-bold transition-all flex-1 justify-center",
+                            formData.hasVetSupport === 'no' ? 'bg-[#123524]/5 border-[#123524] text-[#123524]' : 'border-gray-200 bg-white hover:bg-gray-50'
                           )}>
                             <input 
                               type="radio" 
@@ -874,15 +938,15 @@ export default function RegistrationPage() {
                 {/* Step 6: Needs Assessment */}
                 {step === 6 && (
                   <div className="space-y-8 animate-fade-in">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.mostUrgentNeed}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.mostUrgentNeed}</label>
                         <select 
                           value={formData.mostUrgentNeed}
                           onChange={(e) => handleInputChange('mostUrgentNeed', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white cursor-pointer"
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-850 font-semibold focus:border-primary-800 outline-none bg-white cursor-pointer focus:ring-4 focus:ring-[#123524]/5"
                         >
-                          <option value="">-- {locale === 'ar' ? 'حدد الاحتياج' : 'Select'} --</option>
+                          <option value="">-- {locale === 'ar' ? 'حدد الاحتياج الأساسي' : 'Select Urgent Need'} --</option>
                           <option value="water">{dict.registration.waterNeed}</option>
                           <option value="seeds">{dict.registration.agricultureSupport}</option>
                           <option value="training">{dict.registration.trainingNeed}</option>
@@ -891,25 +955,25 @@ export default function RegistrationPage() {
                       </div>
 
                       <div>
-                        <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.trainingNeed}</label>
+                        <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.trainingNeed}</label>
                         <input 
                           type="text" 
                           value={formData.trainingNeed}
                           onChange={(e) => handleInputChange('trainingNeed', e.target.value)}
-                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white placeholder-gray-400" 
-                          placeholder="e.g. Tree Pruning, Water Management" 
+                          className="w-full h-12 rounded-lg px-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white focus:ring-4 focus:ring-[#123524]/5 placeholder-gray-400" 
+                          placeholder={locale === 'ar' ? 'مثال: تقليم الأشجار، رعاية الأعلاف' : 'e.g. Tree Pruning, Fodder Care'} 
                         />
                       </div>
                     </div>
 
                     <div className="pt-2">
-                      <label className="block text-[10px] font-medium text-gray-500 uppercase tracking-widest mb-2 leading-relaxed">{dict.registration.notes}</label>
+                      <label className="block text-xs font-bold text-[#123524] mb-2">{dict.registration.notes}</label>
                       <textarea 
                         rows={4} 
                         value={formData.notes}
                         onChange={(e) => handleInputChange('notes', e.target.value)}
-                        className="w-full rounded-lg p-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white resize-none placeholder-gray-400" 
-                        placeholder="Additional notes or support comments..."
+                        className="w-full rounded-lg p-4 border border-gray-200 text-sm text-gray-800 font-semibold focus:border-primary-800 outline-none bg-white resize-none placeholder-gray-400 focus:ring-4 focus:ring-[#123524]/5" 
+                        placeholder={locale === 'ar' ? 'أي ملاحظات إضافية أو تعليقات...' : 'Additional notes or support comments...'}
                       />
                     </div>
                   </div>
@@ -920,69 +984,29 @@ export default function RegistrationPage() {
                   <div className="space-y-8 animate-fade-in">
                     
                     {/* Consent Checkboxes */}
-                    <div className="bg-[#FAF7EF]/90 border border-[#E7E0D2] rounded-2xl p-6 space-y-4">
+                    <div className="bg-[#FAF7EF]/80 border border-[#E7E0D2] rounded-2xl p-6 space-y-4">
                       
                       <label className="flex items-start gap-3 cursor-pointer group">
                         <input 
                           type="checkbox" 
                           checked={formData.consent1}
                           onChange={(e) => handleInputChange('consent1', e.target.checked)}
-                          className="mt-1 w-4.5 h-4.5 text-primary-800 border-gray-300 rounded focus:ring-primary-800 cursor-pointer" 
+                          className="mt-1 w-5 h-5 text-primary-800 border-gray-300 rounded focus:ring-primary-800 cursor-pointer transition-colors" 
                         />
-                        <span className="text-gray-800 text-xs font-semibold select-none group-hover:text-primary-950 leading-relaxed">
+                        <span className="text-gray-850 text-xs font-bold select-none group-hover:text-primary-950 leading-relaxed">
                           {locale === 'ar' 
-                            ? 'أؤكد أن جميع المعلومات المقدمة في هذا النموذج دقيقة وصحيحة بحسب علمي.' 
-                            : 'I confirm that the information is accurate to the best of my knowledge.'}
-                        </span>
-                      </label>
-
-                      <label className="flex items-start gap-3 cursor-pointer group">
-                        <input 
-                          type="checkbox" 
-                          checked={formData.consent2}
-                          onChange={(e) => handleInputChange('consent2', e.target.checked)}
-                          className="mt-1 w-4.5 h-4.5 text-primary-800 border-gray-300 rounded focus:ring-primary-800 cursor-pointer" 
-                        />
-                        <span className="text-gray-800 text-xs font-semibold select-none group-hover:text-primary-950 leading-relaxed">
-                          {dict.registration.consent1}
-                        </span>
-                      </label>
-
-                      <label className="flex items-start gap-3 cursor-pointer group">
-                        <input 
-                          type="checkbox" 
-                          checked={formData.consent3}
-                          onChange={(e) => handleInputChange('consent3', e.target.checked)}
-                          className="mt-1 w-4.5 h-4.5 text-primary-800 border-gray-300 rounded focus:ring-primary-800 cursor-pointer" 
-                        />
-                        <span className="text-gray-800 text-xs font-semibold select-none group-hover:text-primary-950 leading-relaxed">
-                          {dict.registration.consent2}
-                        </span>
-                      </label>
-
-                      <label className="flex items-start gap-3 cursor-pointer group">
-                        <input 
-                          type="checkbox" 
-                          checked={formData.consent4}
-                          onChange={(e) => handleInputChange('consent4', e.target.checked)}
-                          className="mt-1 w-4.5 h-4.5 text-primary-800 border-gray-300 rounded focus:ring-primary-800 cursor-pointer" 
-                        />
-                        <span className="text-gray-800 text-xs font-semibold select-none group-hover:text-primary-950 leading-relaxed">
-                          {locale === 'ar'
-                            ? 'أفهم تماماً أن هذا التسجيل والتقييم يهدف للتخطيط التنموي والتدريب الإرشادي، ولا يمثل وعداً مالياً أو إغاثياً مباشراً.'
-                            : 'I understand that registration is for project planning and vocational assessment, and does not guarantee immediate financial support.'}
+                            ? 'أؤكد أن المعلومات المقدمة يمكن استخدامها للمراجعة الداخلية للمشروع، وتقييم الاحتياجات، وتنسيق التدريب، والتخطيط لفرص الدعم المستقبلية. وأفهم أن المعلومات الشخصية لن يتم نشرها للعامة.' 
+                            : 'I confirm that the information provided may be used for internal project review, needs assessment, training coordination and future support planning. I understand that personal information will not be published publicly.'}
                         </span>
                       </label>
 
                     </div>
 
-                    {/* Validation Errors for Consent checkboxes */}
-                    {(errors.consent1 || errors.consent2 || errors.consent3 || errors.consent4) && (
+                    {/* Validation Errors for Consent checkbox */}
+                    {errors.consent1 && (
                       <div className="bg-rose-50 border border-rose-100 rounded-xl p-4">
                         <p className="text-xs text-rose-600 font-bold leading-relaxed">
-                          {locale === 'ar' 
-                            ? 'يرجى مراجعة وتأكيد جميع بنود الموافقة والإقرار لإكمال عملية التسجيل.' 
-                            : 'Please review and confirm all consent and declaration items to submit.'}
+                          {errors.consent1}
                         </p>
                       </div>
                     )}
@@ -1011,8 +1035,8 @@ export default function RegistrationPage() {
                     {/* Anonymous Statistics note */}
                     <p className="text-[10px] text-gray-400 leading-relaxed font-bold uppercase tracking-wider text-center">
                       {locale === 'ar'
-                        ? 'ملاحظة: قد يتم استخدام الإحصاءات العامة مجهولة الهوية في تقارير المانحين والتخطيط التنموي.'
-                        : 'Note: Anonymous statistics may be used in donor and development reports.'}
+                        ? 'ملاحظة: سجلات داخلية محمية ومجهولة الهوية لأغراض التخطيط والتقييم فقط.'
+                        : 'Note: Protected internal records for planning and training evaluation purposes only.'}
                     </p>
 
                   </div>
@@ -1026,12 +1050,12 @@ export default function RegistrationPage() {
                     type="button"
                     onClick={handlePrev}
                     className={cn(
-                      "px-5 py-3 border border-gray-255 rounded-xl text-gray-700 text-xs font-extrabold hover:bg-gray-50 hover:border-gray-300 transition-all cursor-pointer inline-flex items-center gap-1.5 w-full sm:w-auto justify-center",
+                      "px-5 py-3 border border-gray-200 rounded-xl text-gray-700 text-xs font-extrabold hover:bg-gray-50 hover:border-gray-300 transition-all cursor-pointer inline-flex items-center gap-1.5 w-full sm:w-auto justify-center",
                       step === 1 ? 'invisible sm:hidden' : ''
                     )}
                   >
                     <ChevronLeft className="w-4 h-4 rtl:rotate-180" />
-                    {dict.registration.previous}
+                    {locale === 'ar' ? 'السابق' : 'Previous'}
                   </button>
 
                   <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto sm:ms-auto">
@@ -1042,7 +1066,7 @@ export default function RegistrationPage() {
                       onClick={handleSaveDraft}
                       className="px-5 py-3 text-xs font-extrabold text-gray-450 hover:text-gray-700 hover:bg-gray-50/50 rounded-xl transition-all w-full sm:w-auto justify-center inline-flex items-center cursor-pointer border border-transparent hover:border-gray-200"
                     >
-                      {dict.registration.saveDraft}
+                      {locale === 'ar' ? 'حفظ كمسودة — قريباً' : 'Save Draft — Coming Soon'}
                     </button>
 
                     {/* Next / Submit Button */}
@@ -1052,7 +1076,7 @@ export default function RegistrationPage() {
                         onClick={handleNext}
                         className="btn-primary px-6 py-3 text-xs font-bold transition-all shadow-soft cursor-pointer inline-flex items-center gap-1.5 w-full sm:w-auto justify-center"
                       >
-                        {dict.registration.next}
+                        {locale === 'ar' ? 'التالي' : 'Next'}
                         <ChevronRight className="w-4 h-4 rtl:rotate-180" />
                       </button>
                     ) : (
@@ -1068,7 +1092,7 @@ export default function RegistrationPage() {
                           </>
                         ) : (
                           <>
-                            {dict.registration.submit}
+                            {locale === 'ar' ? 'إرسال للمراجعة الداخلية' : 'Submit for Internal Review'}
                             <Send className="w-3.5 h-3.5" />
                           </>
                         )}
@@ -1081,22 +1105,22 @@ export default function RegistrationPage() {
               </form>
             </div>
 
-            {/* 6. Support/Help Block (Resolves vertical empty space) */}
-            <div className="bg-white rounded-[1.5rem] border border-[#E7E0D2] p-6 shadow-soft flex flex-col sm:flex-row items-center justify-between gap-6">
+            {/* 6. Support/Help Block */}
+            <div className="bg-white rounded-3xl border border-[#E7E0D2]/70 p-6 shadow-soft flex flex-col sm:flex-row items-center justify-between gap-6">
               <div className="space-y-1.5 text-center sm:text-start">
-                <h4 className="text-xs font-extrabold text-[#1F4D36] uppercase tracking-wider">
-                  {locale === 'ar' ? 'هل تحتاج إلى مساعدة في التسجيل؟' : 'Need help with registration?'}
+                <h4 className="text-xs font-extrabold text-[#123524] uppercase tracking-wider">
+                  {locale === 'ar' ? 'هل تحتاج إلى مساعدة في إكمال النموذج؟' : 'Need help with registration?'}
                 </h4>
                 <p className="text-xs text-gray-500 leading-relaxed font-semibold">
                   {locale === 'ar' 
-                    ? 'يمكن لموظفي الميدان أو أعضاء اللجنة المحلية مساعدة الأسر التي لا تستطيع إكمال النموذج بمفردها.' 
-                    : 'Field staff or local committee members can assist families who cannot complete the form alone.'}
+                    ? 'يمكن لمرشدي الميدان أو أعضاء اللجنة المحلية مساعدة الأسر التي لا تستطيع إكمال النموذج بمفردها.' 
+                    : 'Field trainers or local committee members can assist families who cannot complete the form alone.'}
                 </p>
               </div>
               <div className="flex items-center gap-3 shrink-0 w-full sm:w-auto justify-center">
                 <a
                   href={`/${locale}/contact`}
-                  className="btn-secondary text-[10px] font-bold px-4 py-2.5 bg-white shadow-sm border border-gray-250 w-full sm:w-auto text-center cursor-pointer"
+                  className="btn-secondary text-[10px] font-bold px-4 py-2.5 bg-white shadow-sm border border-gray-250 w-full sm:w-auto text-center cursor-pointer rounded-xl hover:bg-gray-50 transition-colors"
                 >
                   {locale === 'ar' ? 'اتصل باللجنة المحلية' : 'Contact Local Committee'}
                 </a>
@@ -1105,69 +1129,10 @@ export default function RegistrationPage() {
 
           </div>
 
-          {/* Right Column - 3. Application Summary Panel */}
-          <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
-            <div className="hidden lg:block">
-  
-            <div className="bg-white rounded-[1.5rem] border border-[#E7E0D2]/60 p-6 shadow-sm space-y-5 bg-gradient-to-b from-white to-gray-50/30">
-              <h3 className="text-xs font-extrabold text-[#9A6B3F] uppercase tracking-widest border-b border-[#E7E0D2]/50 pb-2">
-                {dict.registration.summaryTitle}
-              </h3>
-              
-              <div className="space-y-4 text-xs font-semibold text-gray-700">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.applicationNumber}</span>
-                  <span className="font-mono text-[11px] font-medium text-primary-800 bg-gray-50 px-2 py-0.5 rounded border border-gray-100">{appNumber}</span>
-                </div>
-                
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{locale === 'ar' ? 'القسم الحالي' : 'Current Step'}</span>
-                  <span className="text-primary-900 font-semibold">
-                    {locale === 'ar' ? `القسم ${step} من ${totalSteps}` : `Section ${step} of ${totalSteps}`}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.statusLabel}</span>
-                  <span className="inline-flex items-center gap-1.5 text-xs text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-100">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
-                    {dict.registration.statusValue}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.estTimeLabel}</span>
-                  <span className="flex items-center gap-1 text-gray-600">
-                    <Clock className="w-3.5 h-3.5" />
-                    {dict.registration.estTimeValue}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.protectionLabel}</span>
-                  <span className="flex items-center gap-1 text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100 font-bold text-[10px] uppercase tracking-wider">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    {dict.registration.protectionValue}
-                  </span>
-                </div>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-400">{dict.registration.langLabel}</span>
-                  <span className="uppercase text-[10px] font-bold text-primary-900 bg-gray-50 px-2.5 py-1 rounded border border-gray-150/40">
-                    {locale}
-                  </span>
-                </div>
-              </div>
-
-              <div className="pt-2 border-t border-[#E7E0D2]/50 text-center">
-                <p className="text-[10px] text-gray-400 leading-relaxed font-bold uppercase tracking-wider flex items-center justify-center gap-1.5">
-                  <Lock className="w-3.5 h-3.5" />
-                  {locale === 'ar' ? 'مراجعة داخلية محدودة' : 'Restricted internal review'}
-                </p>
-              </div>
-            </div>
-                      </div>
-</div>
+          {/* Right Column - Desktop Side Information Panel */}
+          <div className="lg:col-span-4 space-y-6 lg:sticky lg:top-28 hidden lg:block">
+            {renderSidePanel()}
+          </div>
 
         </div>
 
