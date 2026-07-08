@@ -12,6 +12,7 @@ import {
   Leaf, BookOpen, ShieldCheck, ChartLineUp, Path, Handshake, Shield,
   Info
 } from '@phosphor-icons/react/dist/ssr';
+import TextToSpeechButton from '@/components/ui/TextToSpeechButton';
 
 interface ProgramPageProps {
   params: Promise<{ locale: string; id: string }>;
@@ -138,6 +139,7 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               <div className="text-lg text-gray-700 leading-[1.8] space-y-6">
                 {brief.map((p, i) => <p key={i}>{p}</p>)}
               </div>
+              <TextToSpeechButton text={brief.join(' ')} locale={locale as 'en' | 'ar'} />
             </section>
 
             {/* 3.3 Why This Program Matters */}
@@ -152,6 +154,7 @@ export default async function ProgramDetailPage({ params }: ProgramPageProps) {
               <div className="text-lg text-gray-700 leading-[1.8] space-y-5 relative z-10">
                 {whyItMatters.map((p, i) => <p key={i}>{p}</p>)}
               </div>
+              <TextToSpeechButton text={whyItMatters.join(' ')} locale={locale as 'en' | 'ar'} />
             </section>
 
             {/* 3.4 Objectives */}

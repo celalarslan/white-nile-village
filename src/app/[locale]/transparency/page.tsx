@@ -6,6 +6,7 @@ import { dashboardStats } from '@/lib/data/mockData';
 import { isRTL } from '@/lib/i18n/config';
 import { Sparkle as Sparkles, UsersThree as Users, Medal as Award, ShieldCheck as Shield, FileText, Tree as Trees, PiggyBank } from '@phosphor-icons/react/dist/ssr';
 import { cn } from '@/lib/utils';
+import TextToSpeechButton from '@/components/ui/TextToSpeechButton';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -90,6 +91,7 @@ export default async function TransparencyPage({ params }: { params: Promise<{ l
           </h1>
           <div className="h-0.5 w-12 bg-earth-500 mx-auto rounded-full mb-6" />
           <p className="text-sm text-gray-500 leading-relaxed max-w-xl mx-auto">{dict.transparency?.subtitle as string}</p>
+          <TextToSpeechButton text={dict.transparency?.subtitle as string} locale={locale as 'en' | 'ar'} className="mx-auto" />
         </div>
 
         {/* Dashboard Title */}
@@ -121,6 +123,7 @@ export default async function TransparencyPage({ params }: { params: Promise<{ l
           </div>
           <h3 className="text-base font-bold text-gray-900 mb-2">{dict.transparency?.inPreparation as string}</h3>
           <p className="text-xs text-gray-500 mb-6 max-w-sm mx-auto">{dict.transparency?.noDataYet as string}</p>
+          <TextToSpeechButton text={dict.transparency?.noDataYet as string} locale={locale as 'en' | 'ar'} className="mx-auto mb-4" />
           <div className="h-1 w-full bg-gray-100 rounded-full overflow-hidden max-w-xs mx-auto">
             <div className="h-full bg-earth-500 rounded-full w-2/3 animate-pulse" />
           </div>

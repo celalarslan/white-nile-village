@@ -9,6 +9,7 @@ import { getDictionary } from '@/lib/i18n/getDictionary';
 import { ArrowLeft, Target, Pulse as Activity, CalendarBlank as Calendar, CheckCircle as CheckCircle2 } from '@phosphor-icons/react/dist/ssr';
 import { isRTL } from '@/lib/i18n/config';
 import { cn } from '@/lib/utils';
+import TextToSpeechButton from '@/components/ui/TextToSpeechButton';
 
 interface ProjectPageProps {
   params: Promise<{ locale: string; id: string }>;
@@ -89,9 +90,10 @@ export default async function ProjectDetailPage({ params }: ProjectPageProps) {
               <h2 className="text-2xl font-bold text-gray-900 mb-6 border-b border-gray-100 pb-4">
                 {(dict?.programs as any)?.about ?? 'Project Details'}
               </h2>
-            <p className="text-lg text-gray-600 leading-relaxed mb-10 whitespace-pre-wrap">
+            <p className="text-lg text-gray-600 leading-relaxed mb-6 whitespace-pre-wrap">
               {description}
             </p>
+            <TextToSpeechButton text={description} locale={locale as 'en' | 'ar'} />
 
             {/* Impact Indicators */}
             {project.impactIndicators && project.impactIndicators.length > 0 && (

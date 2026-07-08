@@ -4,6 +4,7 @@ import { Locale } from '@/lib/types';
 import { ShieldCheck as Shield, UsersThree as Users, Leaf, Heart, Lightbulb, CheckCircle as CheckCircle2 } from '@phosphor-icons/react/dist/ssr';
 import { isRTL } from '@/lib/i18n/config';
 import { cn } from '@/lib/utils';
+import TextToSpeechButton from '@/components/ui/TextToSpeechButton';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -50,6 +51,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <p className="text-base text-gray-600 leading-relaxed font-semibold">
             {dict.about?.whoWeAreText as string}
           </p>
+          <TextToSpeechButton text={dict.about?.whoWeAreText as string} locale={locale as 'en' | 'ar'} />
         </section>
 
         {/* Mission & Vision Split Layout */}
@@ -63,6 +65,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <p className="text-xs text-gray-500 leading-relaxed font-semibold">
               {dict.about?.missionText as string}
             </p>
+            <TextToSpeechButton text={dict.about?.missionText as string} locale={locale as 'en' | 'ar'} />
           </section>
 
           {/* Vision */}
@@ -74,6 +77,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
             <p className="text-xs text-gray-500 leading-relaxed font-semibold">
               {dict.about?.visionText as string}
             </p>
+            <TextToSpeechButton text={dict.about?.visionText as string} locale={locale as 'en' | 'ar'} />
           </section>
         </div>
 
@@ -105,6 +109,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
           <p className="text-sm text-gray-600 leading-relaxed font-semibold">
             {dict.about?.committeeText as string}
           </p>
+          <TextToSpeechButton text={dict.about?.committeeText as string} locale={locale as 'en' | 'ar'} />
         </section>
 
         {/* Legal Status Panel (Beige institutional warning card, no raw borders) */}

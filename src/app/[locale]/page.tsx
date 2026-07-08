@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getDictionary } from '@/lib/i18n/getDictionary';
 import { Locale } from '@/lib/types';
 import HeroSection from '@/components/sections/HeroSection';
+import TextToSpeechButton from '@/components/ui/TextToSpeechButton';
 import { UsersThree as Users, Medal as Award, Tree as Trees, ShieldCheck as Shield, Leaf, Tractor, GraduationCap, FileText, ArrowRight, Sparkle as Sparkles, CheckCircle as CheckCircle2, CaretRight as ChevronRight, Pulse as Activity, Question as HelpCircle } from '@phosphor-icons/react/dist/ssr';
 import { isRTL } from '@/lib/i18n/config';
 import { cn } from '@/lib/utils';
@@ -356,6 +357,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <p className="text-sm text-gray-600 leading-relaxed font-semibold pt-4">
                 {t.why.desc}
               </p>
+              <TextToSpeechButton text={t.why.desc} locale={locale as 'en' | 'ar'} />
             </div>
 
             {/* Right - Stacked cards */}
@@ -413,6 +415,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
               <p className="text-sm text-gray-600 leading-relaxed font-semibold">
                 {t.gumArabic.desc}
               </p>
+              <TextToSpeechButton text={t.gumArabic.desc} locale={locale as 'en' | 'ar'} />
 
               {/* 4 Feature Items - clean lines */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6 pt-4 border-t border-[#E8E5DD]/40">
